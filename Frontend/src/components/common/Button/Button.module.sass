@@ -1,0 +1,94 @@
+@import '../../../styles/variables'
+
+.button
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    gap: 8px
+    border: none
+    border-radius: $radius-md
+    font-weight: 500
+    cursor: pointer
+    transition: all $transition-fast
+    position: relative
+
+&:disabled
+    opacity: 0.6
+    cursor: not-allowed
+
+&.fullWidth
+    width: 100%
+
+&.small
+    padding: 8px 16px
+    font-size: $font-size-sm
+
+&.medium
+    padding: 12px 24px
+    font-size: $font-size-base
+
+&.large
+    padding: 16px 32px
+    font-size: $font-size-lg
+
+&.primary
+    background: $primary
+    color: white
+
+    &:hover:not(:disabled)
+        background: darken($primary, 10%)
+
+&.secondary
+    background: $secondary
+    color: white
+
+    &:hover:not(:disabled)
+        background: darken($secondary, 10%)
+
+&.outline
+    background: transparent
+    color: $primary
+    border: 2px solid $primary
+
+    &:hover:not(:disabled)
+        background: rgba($primary, 0.1)
+
+&.danger
+    background: $danger
+    color: white
+
+    &:hover:not(:disabled)
+        background: darken($danger, 10%)
+
+&.success
+    background: $success
+    color: white
+
+    &:hover:not(:disabled)
+        background: darken($success, 10%)
+
+&.loading
+    color: transparent
+    pointer-events: none
+
+    .spinner
+        position: absolute
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        width: 20px
+        height: 20px
+        border: 2px solid rgba(255, 255, 255, 0.3)
+        border-top-color: white
+        border-radius: 50%
+        animation: spin 0.8s linear infinite
+
+.iconLeft
+    margin-right: 4px
+
+.iconRight
+    margin-left: 4px
+
+@keyframes spin
+    to
+        transform: translate(-50%, -50%) rotate(360deg)

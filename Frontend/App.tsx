@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { AppRoutes } from './router/AppRoutes'
+import { useCheckAuthQuery } from './store/api/authApi'
+import { setCredentials, logout } from './store/slices/authSlice'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch()
+  const { data, isLoading } = useCheckAuthQuery(undefined, {
+    skip: !localStorage.getItem('accessToken'),
+  })
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  useEffect(() => {
+    if (data) {
+      dispatch(setCredentials({
+        user: data,
+        tokens: {
+          access: localStorage.getItem('accessToken') || '',
+          refresh: localStorage.getItem('refreshToken') || '',
+        },
+      }))
+    } else if (!isLoading && !data) {
+      dispatch(logout())
+    }
+  }, [data, isLoading, dispatch])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  return <AppRoutes />
 }
 
 export default App
