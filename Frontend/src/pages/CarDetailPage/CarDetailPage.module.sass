@@ -1,0 +1,204 @@
+@import '../../styles/variables'
+@import '../../styles/mixins'
+
+.carDetailPage
+    padding: $spacing-lg 0 $spacing-xxl
+
+.header
+@include flex-between
+margin-bottom: $spacing-lg
+
+@include mobile
+    flex-direction: column
+    gap: $spacing-md
+    align-items: flex-start
+
+.backButton
+    padding: $spacing-sm $spacing-md
+    border: 1px solid $border
+    border-radius: $radius-md
+    background: $white
+    cursor: pointer
+    transition: all $transition-fast
+
+@include hover
+    background: $background
+    border-color: $primary
+
+.title
+    font-size: $font-size-xl
+    margin: 0
+
+.gallery
+    margin-bottom: $spacing-xl
+
+.mainInfo
+@include flex-between
+margin-bottom: $spacing-xl
+padding: $spacing-lg
+background: $white
+border-radius: $radius-lg
+border: 1px solid $border
+
+@include mobile
+    flex-direction: column
+    gap: $spacing-lg
+    align-items: flex-start
+
+.priceSection
+    display: flex
+    align-items: center
+    gap: $spacing-xl
+
+@include mobile
+    flex-direction: column
+    align-items: flex-start
+    gap: $spacing-md
+    width: 100%
+
+.price
+    font-size: $font-size-xxl
+    font-weight: $font-weight-bold
+    color: $primary
+
+.actions
+    display: flex
+    gap: $spacing-md
+
+.status
+    display: flex
+    align-items: center
+    gap: $spacing-lg
+
+@include mobile
+    width: 100%
+    justify-content: space-between
+
+.statusBadge
+    padding: $spacing-sm $spacing-lg
+    border-radius: $radius-md
+    font-weight: $font-weight-medium
+
+&.in_stock
+    background: rgba($success, 0.1)
+    color: $success
+
+&.sold
+    background: rgba($danger, 0.1)
+    color: $danger
+
+&.reserved
+    background: rgba($warning, 0.1)
+    color: $warning
+
+&.expected
+    background: rgba($primary, 0.1)
+    color: $primary
+
+.views
+    color: $text-light
+    font-size: $font-size-sm
+
+.contentGrid
+    display: grid
+    grid-template-columns: 2fr 1fr
+    gap: $spacing-xl
+    margin-bottom: $spacing-xl
+
+@include tablet
+    grid-template-columns: 1fr
+
+.leftColumn
+    display: flex
+    flex-direction: column
+    gap: $spacing-xl
+
+.rightColumn
+@include tablet
+    order: -1
+
+.sectionTitle
+    font-size: $font-size-lg
+    margin-bottom: $spacing-lg
+    padding-bottom: $spacing-sm
+    border-bottom: 2px solid $border
+
+.description
+    background: $white
+    padding: $spacing-lg
+    border-radius: $radius-lg
+    border: 1px solid $border
+
+p
+    line-height: $line-height-loose
+    color: $text
+
+.equipment
+    background: $white
+    padding: $spacing-lg
+    border-radius: $radius-lg
+    border: 1px solid $border
+
+    &Grid
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        gap: $spacing-lg
+
+@include mobile
+    grid-template-columns: 1fr
+
+.equipmentCategory
+h3
+    font-size: $font-size-base
+    margin-bottom: $spacing-md
+    color: $primary
+
+.equipmentList
+    list-style: none
+    padding: 0
+
+.equipmentItem
+    padding: $spacing-xs 0
+    color: $text
+    font-size: $font-size-sm
+
+&::before
+    content: '✓'
+    color: $success
+    margin-right: $spacing-sm
+
+.authPrompt
+    background: $white
+    padding: $spacing-xl
+    border-radius: $radius-lg
+    border: 1px solid $border
+    text-align: center
+
+p
+    margin-bottom: $spacing-lg
+    color: $text-light
+
+.similar
+    margin-top: $spacing-xl
+
+    &Grid
+@include grid(1, $spacing-md)
+
+@include tablet
+    @include grid(2, $spacing-md)
+
+@include desktop
+    @include grid(4, $spacing-lg)
+
+.loading
+    text-align: center
+    padding: $spacing-xxl
+    color: $text-light
+
+.notFound
+    text-align: center
+    padding: $spacing-xxl
+
+h2
+    margin-bottom: $spacing-lg
+    color: $text-light

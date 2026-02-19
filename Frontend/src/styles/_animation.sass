@@ -1,0 +1,116 @@
+@import './mixins'
+
+@include keyframes(fadeIn)
+  from 
+    opacity: 0
+
+  to 
+    opacity: 1
+
+@include keyframes(fadeOut)
+  from 
+    opacity: 1
+
+  to 
+    opacity: 0
+
+@include keyframes(slideInUp)
+  from 
+    transform: translateY(20px)
+    opacity: 0
+
+  to 
+    transform: translateY(0)
+    opacity: 1
+
+@include keyframes(slideInDown)
+  from 
+    transform: translateY(-20px)
+    opacity: 0
+
+  to 
+    transform: translateY(0)
+    opacity: 1
+
+@include keyframes(slideInLeft)
+  from 
+    transform: translateX(-20px)
+    opacity: 0
+
+  to 
+    transform: translateX(0)
+    opacity: 1
+
+@include keyframes(slideInRight)
+  from 
+    transform: translateX(20px)
+    opacity: 0
+
+  to 
+    transform: translateX(0)
+    opacity: 1
+
+@include keyframes(scaleIn)
+  from 
+    transform: scale(0.9)
+    opacity: 0
+
+  to 
+    transform: scale(1)
+    opacity: 1
+
+@include keyframes(spin)
+  from 
+    transform: rotate(0deg)
+
+  to 
+    transform: rotate(360deg)
+
+@include keyframes(pulse)
+  0% 
+    transform: scale(1)
+
+  50% 
+    transform: scale(1.05)
+
+  100% 
+    transform: scale(1)
+
+@include keyframes(shimmer)
+  0% 
+    background-position: -1000px 0
+
+  100% 
+    background-position: 1000px 0
+
+.fade-enter
+    opacity: 0
+
+.fade-enter-active
+    opacity: 1
+    transition: opacity $transition-base
+
+.fade-exit
+    opacity: 1
+
+.fade-exit-active
+    opacity: 0
+    transition: opacity $transition-base
+
+.slide-enter
+    transform: translateY(20px)
+    opacity: 0
+
+.slide-enter-active
+    transform: translateY(0)
+    opacity: 1
+    transition: all $transition-base
+
+.slide-exit
+    transform: translateY(0)
+    opacity: 1
+
+.slide-exit-active
+    transform: translateY(-20px)
+    opacity: 0
+    transition: all $transition-base

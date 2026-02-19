@@ -1,0 +1,119 @@
+@import '../../styles/variables'
+@import '../../styles/mixins'
+
+.dashboardPage
+    padding: $spacing-lg 0 $spacing-xxl
+
+.title
+    font-size: $font-size-xl
+    margin-bottom: $spacing-xl
+
+.accessDenied
+    text-align: center
+    padding: $spacing-xxl
+
+h2
+    color: $danger
+    margin-bottom: $spacing-md
+
+p
+    color: $text-light
+
+.tabs
+    display: flex
+    gap: $spacing-sm
+    margin-bottom: $spacing-xl
+    border-bottom: 2px solid $border
+
+@include mobile
+    flex-direction: column
+    border-bottom: none
+
+.tab
+    padding: $spacing-md $spacing-xl
+    background: none
+    border: none
+    font-size: $font-size-base
+    font-weight: $font-weight-medium
+    color: $text-light
+    cursor: pointer
+    transition: all $transition-fast
+    border-bottom: 2px solid transparent
+    margin-bottom: -2px
+
+@include hover
+    color: $primary
+
+&.active
+    color: $primary
+    border-bottom-color: $primary
+
+@include mobile
+    border-bottom: none
+    border-left: 2px solid transparent
+    margin-bottom: 0
+    margin-left: -2px
+    text-align: left
+
+    &.active
+        border-bottom: none
+        border-left-color: $primary
+
+.overview
+    animation: fadeIn $transition-base
+
+.loading
+    text-align: center
+    padding: $spacing-xxl
+    color: $text-light
+
+.chartsGrid
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: $spacing-xl
+    margin-top: $spacing-xl
+
+@include tablet
+    grid-template-columns: 1fr
+
+.chartCard
+    background: $white
+    border-radius: $radius-lg
+    border: 1px solid $border
+    padding: $spacing-lg
+
+h3
+    font-size: $font-size-lg
+    margin-bottom: $spacing-lg
+
+.chartTitle
+    font-size: $font-size-base
+    margin-bottom: $spacing-lg
+    color: $text
+
+.carsTab,
+.ordersTab
+    animation: fadeIn $transition-base
+
+.comingSoon
+    text-align: center
+    padding: $spacing-xxl
+    background: $white
+    border-radius: $radius-lg
+    border: 1px solid $border
+
+h3
+    color: $text
+    margin-bottom: $spacing-sm
+
+p
+    color: $text-light
+
+@keyframes fadeIn
+    from
+        opacity: 0
+        transform: translateY(10px)
+
+    to
+        opacity: 1
+        transform: translateY(0)

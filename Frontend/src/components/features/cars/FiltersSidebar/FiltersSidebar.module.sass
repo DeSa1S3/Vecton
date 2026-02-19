@@ -1,0 +1,104 @@
+@import '../../../../styles/variables'
+@import '../../../../styles/mixins'
+
+.sidebar
+    background: $white
+    border-radius: $radius-lg
+    border: 1px solid $border
+    padding: $spacing-lg
+
+@include mobile
+    border-radius: 0
+    border: none
+
+.header
+@include flex-between
+margin-bottom: $spacing-lg
+padding-bottom: $spacing-md
+border-bottom: 1px solid $border
+
+.title
+    font-size: $font-size-lg
+    margin: 0
+
+.clearButton
+    color: $primary
+    font-size: $font-size-sm
+    background: none
+    border: none
+    cursor: pointer
+
+@include hover
+    text-decoration: underline
+
+.filterGroup
+    margin-bottom: $spacing-xl
+
+.filterTitle
+    font-size: $font-size-base
+    margin-bottom: $spacing-md
+    color: $text
+
+.select
+    width: 100%
+    padding: $spacing-sm $spacing-md
+    border: 1px solid $border
+    border-radius: $radius-sm
+    background: $white
+    cursor: pointer
+
+&:focus
+    outline: none
+    border-color: $primary
+
+.rangeInputs
+    display: flex
+    gap: $spacing-sm
+    margin-bottom: $spacing-sm
+
+.quickRanges
+    display: flex
+    flex-wrap: wrap
+    gap: $spacing-xs
+    margin-top: $spacing-sm
+
+.quickRange
+    padding: $spacing-xs $spacing-sm
+    background: $background
+    border: 1px solid $border
+    border-radius: $radius-sm
+    font-size: $font-size-xs
+    cursor: pointer
+    transition: all $transition-fast
+
+@include hover
+    background: $primary
+    border-color: $primary
+    color: $white
+
+.checkboxGroup
+    display: flex
+    flex-direction: column
+    gap: $spacing-sm
+    max-height: 200px
+    overflow-y: auto
+@include scrollbar
+
+.checkbox
+    display: flex
+    align-items: center
+    gap: $spacing-sm
+    cursor: pointer
+
+input[type="checkbox"]
+    width: 16px
+    height: 16px
+    cursor: pointer
+
+span
+    font-size: $font-size-sm
+    color: $text
+
+@include hover
+    span
+        color: $primary

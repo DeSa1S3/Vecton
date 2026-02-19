@@ -1,0 +1,60 @@
+@import '../../styles/variables'
+@import '../../styles/mixins'
+
+.favoritesPage
+    padding: $spacing-lg 0 $spacing-xxl
+
+.title
+    font-size: $font-size-xl
+    margin-bottom: $spacing-xl
+
+.loading
+    text-align: center
+    padding: $spacing-xxl
+    color: $text-light
+
+.empty
+    text-align: center
+    padding: $spacing-xxl
+    background: $white
+    border-radius: $radius-lg
+    border: 1px solid $border
+
+p
+    margin-bottom: $spacing-lg
+    color: $text-light
+
+.catalogLink
+    display: inline-block
+    padding: $spacing-md $spacing-xl
+    background: $primary
+    color: $white
+    border-radius: $radius-md
+
+@include hover
+    background: darken($primary, 10%)
+
+.favoritesGrid
+@include grid(1, $spacing-md)
+
+@include tablet
+    @include grid(2, $spacing-md)
+
+@include desktop
+    @include grid(3, $spacing-lg)
+
+.favoriteItem
+    position: relative
+
+.removeButton
+    position: absolute
+    top: $spacing-sm
+    right: $spacing-sm
+    opacity: 0
+    transition: opacity $transition-fast
+
+.favoriteItem:hover &
+    opacity: 1
+
+@include mobile
+    opacity: 1

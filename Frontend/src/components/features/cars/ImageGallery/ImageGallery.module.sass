@@ -1,0 +1,82 @@
+@import '../../../../styles/variables'
+@import '../../../../styles/mixins'
+
+.gallery
+    width: 100%
+
+.main
+    position: relative
+    aspect-ratio: 16 / 9
+    border-radius: $radius-lg
+    overflow: hidden
+    cursor: pointer
+    margin-bottom: $spacing-md
+
+.mainImage
+    width: 100%
+    height: 100%
+    object-fit: cover
+    transition: transform $transition-base
+
+&:hover
+    transform: scale(1.05)
+
+.fullscreenButton
+    position: absolute
+    bottom: $spacing-md
+    right: $spacing-md
+    width: 40px
+    height: 40px
+    border-radius: $radius-circle
+    background: rgba(0, 0, 0, 0.6)
+    color: $white
+    border: none
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: 20px
+    transition: all $transition-fast
+
+@include hover
+    background: rgba(0, 0, 0, 0.8)
+    transform: scale(1.1)
+
+.thumbnails
+    display: flex
+    gap: $spacing-sm
+    overflow-x: auto
+    padding: $spacing-xs 0
+@include scrollbar
+
+.thumbnail
+    flex: 0 0 100px
+    aspect-ratio: 16 / 9
+    border-radius: $radius-sm
+    overflow: hidden
+    cursor: pointer
+    border: 2px solid transparent
+    transition: all $transition-fast
+
+img
+    width: 100%
+    height: 100%
+    object-fit: cover
+
+&:hover
+    opacity: 0.8
+
+&.active
+    border-color: $primary
+
+.noImage
+    aspect-ratio: 16 / 9
+    border-radius: $radius-lg
+    background: $background
+    display: flex
+    align-items: center
+    justify-content: center
+
+.placeholder
+    color: $text-light
+    font-size: $font-size-lg

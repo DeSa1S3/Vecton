@@ -1,0 +1,95 @@
+@import '../../../../styles/variables'
+@import '../../../../styles/mixins'
+
+.tableWrapper
+    overflow-x: auto
+    border-radius: $radius-lg
+    border: 1px solid $border
+    background: $white
+
+.table
+    width: 100%
+    border-collapse: collapse
+
+th
+    text-align: left
+    padding: $spacing-md
+    background: $background
+    font-weight: $font-weight-semibold
+    color: $text
+    border-bottom: 2px solid $border
+    white-space: nowrap
+
+td
+    padding: $spacing-md
+    border-bottom: 1px solid $border-light
+    vertical-align: middle
+
+tr:last-child td
+    border-bottom: none
+
+tr:hover td
+    background: rgba($primary, 0.02)
+
+.userInfo
+    display: flex
+    flex-direction: column
+    gap: $spacing-xs
+
+.userName
+    font-weight: $font-weight-medium
+
+.userContact
+    font-size: $font-size-xs
+    color: $text-light
+
+.carLink
+    display: flex
+    align-items: center
+    gap: $spacing-sm
+    color: $text
+    text-decoration: none
+
+@include hover
+    color: $primary
+
+.carImage
+    width: 60px
+    height: 40px
+    border-radius: $radius-sm
+    object-fit: cover
+
+.statusBadge
+    display: inline-block
+    padding: $spacing-xs $spacing-md
+    border-radius: $radius-sm
+    color: $white
+    font-size: $font-size-xs
+    font-weight: $font-weight-medium
+    white-space: nowrap
+
+.statusSelect
+    padding: $spacing-xs $spacing-md
+    border: none
+    border-radius: $radius-sm
+    color: $white
+    font-size: $font-size-xs
+    font-weight: $font-weight-medium
+    cursor: pointer
+
+option
+    background: $white
+    color: $text
+
+.detailsLink
+    color: $primary
+    text-decoration: none
+    font-size: $font-size-sm
+
+@include hover
+    text-decoration: underline
+
+.empty
+    text-align: center
+    padding: $spacing-xl
+    color: $text-light
