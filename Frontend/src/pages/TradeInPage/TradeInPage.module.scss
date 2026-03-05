@@ -1,0 +1,382 @@
+.tradeInPage {
+    overflow-x: hidden;
+}
+
+.hero {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    padding: 6rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"%3E%3Cpath d="M20 20 L80 20 L60 80 L40 80 Z" fill="white"/%3E%3C/svg%3E');
+    background-size: 100px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.advantages {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+}
+
+.sectionTitle {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #0f172a;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.sectionTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 4px;
+}
+
+.advantagesGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.advantageCard {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s;
+}
+
+.advantageCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+}
+
+.advantageIcon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 auto 1.5rem;
+}
+
+.advantageCard h3 {
+    font-size: 1.25rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.advantageCard p {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.howItWorks {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+}
+
+.stepsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    position: relative;
+}
+
+.stepsGrid::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, #e2e8f0, #3b82f6, #e2e8f0);
+    z-index: 1;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.stepNumber {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.step h3 {
+    font-size: 1.25rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.step p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 0.875rem;
+}
+
+.calculator {
+    padding: 5rem 0;
+}
+
+.calculatorCard {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: 1.5rem;
+    padding: 3rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.calculatorGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.calculatorForm h3 {
+    font-size: 1.5rem;
+    color: #0f172a;
+    margin-bottom: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #475569;
+    cursor: pointer;
+}
+
+.checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #3b82f6;
+}
+
+.calculatorResult {
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+}
+
+.calculatorResult h3 {
+    font-size: 1.5rem;
+    color: #0f172a;
+    margin-bottom: 2rem;
+}
+
+.resultAmount {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #3b82f6;
+    margin-bottom: 1rem;
+}
+
+.resultInfo p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.resultInfo ul {
+    list-style: none;
+    padding: 0;
+}
+
+.resultInfo li {
+    color: #475569;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.requirements {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.requirementsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.requirementCard {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s;
+}
+
+.requirementCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border-color: #3b82f6;
+}
+
+.requirementIcon {
+    width: 48px;
+    height: 48px;
+    color: #3b82f6;
+    margin-bottom: 1rem;
+}
+
+.requirementCard h3 {
+    font-size: 1.25rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.requirementCard p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 0.875rem;
+}
+
+.cta {
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.cta h2 {
+    font-size: 2rem;
+    color: #0f172a;
+    margin-bottom: 1rem;
+}
+
+.cta p {
+    color: #64748b;
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+}
+
+.ctaButtons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .advantagesGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stepsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stepsGrid::before {
+        display: none;
+    }
+
+    .calculatorGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .requirementsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .advantagesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .stepsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .requirementsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .calculatorCard {
+        padding: 1.5rem;
+    }
+
+    .resultAmount {
+        font-size: 2rem;
+    }
+
+    .ctaButtons {
+        flex-direction: column;
+    }
+}

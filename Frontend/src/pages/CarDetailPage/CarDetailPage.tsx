@@ -100,7 +100,6 @@ export const CarDetailPage: React.FC = () => {
                     <div className={styles.actions}>
                         <Button
                             variant={isFavorite ? 'danger' : 'outline'}
-                            icon={<FiHeart />}
                             onClick={handleFavoriteClick}
                         >
                             {isFavorite ? 'В избранном' : 'В избранное'}
@@ -126,15 +125,12 @@ export const CarDetailPage: React.FC = () => {
 
                             <div className={styles.quickSpecs}>
                                 <div className={styles.specItem}>
-                                    <FiCalendar />
                                     <span>{currentCar.year} год</span>
                                 </div>
                                 <div className={styles.specItem}>
-                                    <FiMapPin />
                                     <span>Москва</span>
                                 </div>
                                 <div className={styles.specItem}>
-                                    <FiEye />
                                     <span>{currentCar.views_count || 0} просмотров</span>
                                 </div>
                             </div>

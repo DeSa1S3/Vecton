@@ -1,71 +1,129 @@
-@import '../../assets/styles/variables';
-@import '../../assets/styles/mixins';
-
 .catalogPage {
-    padding: $spacing-xl 0;
+    padding: 2rem 0;
+}
 
-    .header {
-        @include flex-between;
-        margin-bottom: $spacing-xl;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
 
-        h1 {
-            margin: 0;
-        }
-    }
+.header h1 {
+    font-size: 2.5rem;
+    color: #0f172a;
+    margin: 0;
+    background: linear-gradient(135deg, #0f172a, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
-    .controls {
-        @include flex-center;
-        gap: $spacing-md;
-    }
+.controls {
+    display: flex;
+    gap: 1rem;
+}
 
-    .filterToggle {
-        display: none;
-        @include button-reset;
-        padding: $spacing-sm $spacing-lg;
-        background-color: $gray-200;
-        border-radius: $radius-lg;
-        font-weight: 500;
+.filterToggle {
+    border: none;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid #e2e8f0;
+    display: none;
+}
 
-        @include md {
-            display: block;
-        }
-    }
+.filterToggle:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
 
+.content {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+}
+
+.filters {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(203, 213, 225, 0.5);
+    height: fit-content;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.stats {
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.stats strong {
+    color: #3b82f6;
+    font-size: 1.125rem;
+    margin-left: 0.5rem;
+}
+
+@media (max-width: 1024px) {
     .content {
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        gap: $spacing-xl;
-
-        @include md {
-            grid-template-columns: 1fr;
-        }
+        grid-template-columns: 1fr;
     }
 
     .filters {
-        @include md {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100vh;
-            background-color: $white;
-            z-index: $z-index-modal;
-            padding: $spacing-xl;
-            overflow-y: auto;
-            transition: left $transition-base $transition-timing;
-
-            &.active {
-                left: 0;
-            }
-        }
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        overflow-y: auto;
+        border-radius: 0;
     }
 
-    .main {
-        min-height: 500px;
+    .filters.active {
+        display: block;
     }
 
-    .stats {
-        margin-bottom: $spacing-lg;
-        color: $text-secondary;
+    .filterToggle {
+        display: block;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .catalogPage {
+        padding: 1rem 0;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .controls {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .filterToggle {
+        width: 100%;
     }
 }

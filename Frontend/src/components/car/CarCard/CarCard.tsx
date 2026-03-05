@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Image } from '../../common/Image/Image';
 import { FiHeart, FiEye, FiCalendar, FiMapPin, FiSettings } from 'react-icons/fi';
 import { Car } from '../../../types/car.types';
 import { formatPrice, formatMileage } from '../../../utils/formatters';
@@ -32,18 +33,14 @@ export const CarCard: React.FC<CarCardProps> = ({
         <div className={styles.card}>
             <Link to={`/car/${car.id}`} className={styles.cardLink}>
                 <div className={styles.imageContainer}>
-                    {car.main_image ? (
-                        <img
-                            src={car.main_image}
-                            alt={`${car.brand} ${car.model}`}
-                            className={styles.image}
-                            loading="lazy"
-                        />
-                    ) : (
-                        <div className={styles.placeholder}>
-                            <span>Нет фото</span>
-                        </div>
-                    )}
+                    <Image
+                        src={car.main_image || ''}
+                        alt={`${car.brand} ${car.model}`}
+                        width="100%"
+                        height="200px"
+                        objectFit="cover"
+                        fallbackSrc="/images/car-placeholder.jpg"
+                    />
 
                     {status && car.status !== 'in_stock' && (
                         <div
@@ -60,7 +57,6 @@ export const CarCard: React.FC<CarCardProps> = ({
                             onClick={handleFavoriteClick}
                             aria-label={isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
                         >
-                            <FiHeart />
                         </button>
                     )}
                 </div>
@@ -71,7 +67,6 @@ export const CarCard: React.FC<CarCardProps> = ({
                     </h3>
 
                     <div className={styles.year}>
-                        <FiCalendar />
                         <span>{car.year} год</span>
                     </div>
 
@@ -80,16 +75,19 @@ export const CarCard: React.FC<CarCardProps> = ({
                     </div>
 
                     <div className={styles.specs}>
+                        {car.fuel_type && (
+                            <div className={styles.spec}>
+                                <span>{FUEL_TYPES[car.fuel_type]}</span>
+                            </div>
+                        )}
 
                         {car.transmission && (
                             <div className={styles.spec}>
-                                <FiSettings />
                                 <span>{TRANSMISSIONS[car.transmission]}</span>
                             </div>
                         )}
 
                         <div className={styles.spec}>
-                            <FiMapPin />
                             <span>Москва</span>
                         </div>
                     </div>
@@ -116,7 +114,6 @@ export const CarCard: React.FC<CarCardProps> = ({
 
                     <div className={styles.footer}>
                         <div className={styles.views}>
-                            <FiEye />
                             <span>{car.views_count || 0}</span>
                         </div>
                         {car.images_count > 0 && (

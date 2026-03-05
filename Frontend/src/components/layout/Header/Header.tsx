@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiMenu, FiX, FiUser, FiHeart, FiLogOut, FiBell } from 'react-icons/fi';
+import { FiMenu, FiX, FiUser, FiHeart, FiLogOut, FiBell, FiHome, FiGrid, FiTool, FiRepeat, FiInfo, FiMail } from 'react-icons/fi';
 import { useAuth } from '../../../hooks';
 import { Button } from '../../common/Button/Button';
 import styles from './Header.module.scss';
-import { useAppSelector } from '@/store/hooks/useAppSelectors';
+import { useAppSelector } from '../../../store/hooks/useAppSelectors';
 
 export const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
     const { isAuthenticated, user, logout } = useAuth();
-    const { favoriteIds } = useAppSelector((state: { favorites: any; }) => state.favorites);
-    const { unreadCount } = useAppSelector((state: { notifications: any; }) => state.notifications);
+    const { favoriteIds } = useAppSelector((state: any) => state.favorites || { favoriteIds: [] });
+    const { unreadCount } = useAppSelector((state: any) => state.notifications || { unreadCount: 0 });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -29,11 +29,20 @@ export const Header: React.FC = () => {
     const navLinks = [
         { path: '/', label: 'Главная' },
         { path: '/catalog', label: 'Каталог' },
+        { path: '/services', label: 'Услуги' },
+        { path: '/trade-in', label: 'Trade-in' },
+        { path: '/about', label: 'О компании' },
+        { path: '/contacts', label: 'Контакты' },
     ];
 
-    if (user?.isManager) {
-        navLinks.push({ path: '/dashboard', label: 'Панель управления' });
-    }
+
+
+    const getInitials = () => {
+        if (!user) return '';
+        const firstName = user.first_name || '';
+        const lastName = user.last_name || '';
+        return (firstName[0] || '') + (lastName[0] || '');
+    };
 
     return (
         <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
@@ -41,6 +50,7 @@ export const Header: React.FC = () => {
                 <div className={styles.logo}>
                     <Link to="/">
                         <span className={styles.logoText}>Vecton</span>
+                        <span className={styles.logoBadge}>Auto</span>
                     </Link>
                 </div>
 
@@ -49,10 +59,9 @@ export const Header: React.FC = () => {
                         <Link
                             key={link.path}
                             to={link.path}
-                            className={`${styles.navLink} ${location.pathname === link.path ? styles.active : ''
-                                }`}
+                            className={`${styles.navLink} ${location.pathname === link.path ? styles.active : ''}`}
                         >
-                            {link.label}
+                            <span>{link.label}</span>
                         </Link>
                     ))}
                 </nav>
@@ -60,30 +69,26 @@ export const Header: React.FC = () => {
                 <div className={styles.actions}>
                     {isAuthenticated ? (
                         <>
-                            <Link to="/favorites" className={styles.actionButton}>
-                                <FiHeart />
-                                {favoriteIds.length > 0 && (
+                            <Link to="/favorites" className={styles.actionButton} title="Избранное">
+                                {favoriteIds?.length > 0 && (
                                     <span className={styles.badge}>{favoriteIds.length}</span>
                                 )}
                             </Link>
 
-                            <Link to="/notifications" className={styles.actionButton}>
-                                <FiBell />
+                            <Link to="/notifications" className={styles.actionButton} title="Уведомления">
                                 {unreadCount > 0 && (
                                     <span className={styles.badge}>{unreadCount}</span>
                                 )}
                             </Link>
 
-                            <Link to="/profile" className={styles.profileButton}>
-                                {user?.avatar_url ? (
-                                    <img src={user.avatar_url} alt={user.full_name} />
-                                ) : (
-                                    <FiUser />
-                                )}
+                            <Link to="/profile" className={styles.profileButton} title="Личный кабинет">
+
+                                <span className={styles.profileName}>
+                                    {user?.first_name || 'Профиль'}
+                                </span>
                             </Link>
 
-                            <button onClick={logout} className={styles.actionButton}>
-                                <FiLogOut />
+                            <button onClick={logout} className={styles.actionButton} title="Выйти">
                             </button>
                         </>
                     ) : (
@@ -100,8 +105,8 @@ export const Header: React.FC = () => {
                     <button
                         className={styles.menuButton}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label={isMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
                     >
-                        {isMenuOpen ? <FiX /> : <FiMenu />}
                     </button>
                 </div>
             </div>

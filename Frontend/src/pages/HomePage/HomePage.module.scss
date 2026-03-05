@@ -1,118 +1,207 @@
-@import '../../assets/styles/variables';
-@import '../../assets/styles/mixins';
-
 .homePage {
-    @include flex-column;
+    overflow-x: hidden;
 }
 
 .hero {
     position: relative;
-    min-height: 600px;
-    @include flex-center;
-    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
-    color: $white;
+    height: 600px;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    color: #ffffff;
+    margin-bottom: 4rem;
+    overflow: hidden;
+}
 
-    &Content {
-        max-width: 800px;
-        padding: $spacing-3xl;
-    }
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"%3E%3Cpath d="M20 20 L80 20 L60 80 L40 80 Z" fill="white"/%3E%3C/svg%3E');
+    background-size: 100px;
+    opacity: 0.1;
+}
 
-    &Title {
-        font-size: $font-size-4xl;
-        margin-bottom: $spacing-lg;
-    }
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
+}
 
-    &Subtitle {
-        font-size: $font-size-xl;
-        margin-bottom: $spacing-2xl;
-        opacity: 0.9;
-    }
+.heroContent {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.heroTitle {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    line-height: 1.2;
+}
+
+.heroSubtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
 }
 
 .featured {
-    padding: $spacing-3xl 0;
-    background-color: $bg-primary;
+    padding: 4rem 0;
 }
 
 .sectionTitle {
+    font-size: 2.5rem;
     text-align: center;
-    margin-bottom: $spacing-2xl;
-    font-size: $font-size-3xl;
+    margin-bottom: 3rem;
+    color: #0f172a;
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.sectionTitle::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 4px;
 }
 
 .carGrid {
-    @include grid(4, $spacing-lg);
-
-    @include lg {
-        @include grid(3, $spacing-lg);
-    }
-
-    @include md {
-        @include grid(2, $spacing-md);
-    }
-
-    @include sm {
-        @include grid(1, $spacing-md);
-    }
-}
-
-.loading {
-    @include flex-center;
-    min-height: 200px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
 }
 
 .features {
-    padding: $spacing-3xl 0;
-    background-color: $white;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
 }
 
 .featuresGrid {
-    @include grid(4, $spacing-xl);
-
-    @include lg {
-        @include grid(2, $spacing-lg);
-    }
-
-    @include sm {
-        @include grid(1, $spacing-md);
-    }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
 }
 
 .feature {
     text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s;
+}
 
-    &Icon {
-        font-size: 3rem;
-        margin-bottom: $spacing-md;
-    }
+.feature:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-color: #3b82f6;
+}
 
-    h3 {
-        margin-bottom: $spacing-sm;
-    }
+.featureIcon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
 
-    p {
-        color: $text-secondary;
-    }
+.feature h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+}
+
+.feature p {
+    color: #64748b;
+    margin: 0;
 }
 
 .cta {
-    padding: $spacing-3xl 0;
-    background: linear-gradient(135deg, $gray-900 0%, $gray-800 100%);
-    color: $white;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #ffffff;
     text-align: center;
+}
 
-    &Content {
-        max-width: 600px;
-        margin: 0 auto;
+.ctaContent {
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-        h2 {
-            margin-bottom: $spacing-md;
-        }
+.ctaContent h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
 
-        p {
-            margin-bottom: $spacing-xl;
-            opacity: 0.9;
-        }
+.ctaContent p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+@media (max-width: 1024px) {
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+
+    .carGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 500px;
+    }
+
+    .heroTitle {
+        font-size: 2rem;
+    }
+
+    .heroSubtitle {
+        font-size: 1rem;
+    }
+
+    .sectionTitle {
+        font-size: 2rem;
+    }
+
+    .carGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .featuresGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .ctaContent h2 {
+        font-size: 2rem;
     }
 }

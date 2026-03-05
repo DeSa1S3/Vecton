@@ -40,7 +40,6 @@ export const Modal: React.FC<ModalProps> = ({
                 <div className={styles.header}>
                     {title && <h3 className={styles.title}>{title}</h3>}
                     <button className={styles.closeButton} onClick={onClose}>
-                        <FiX />
                     </button>
                 </div>
                 <div className={styles.content}>{children}</div>

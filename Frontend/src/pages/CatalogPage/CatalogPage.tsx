@@ -7,14 +7,15 @@ import { CarGrid } from '../../components/car/CarGrid/CarGrid';
 import { Pagination } from '../../components/common/Pagination/Pagination';
 import { Select } from '../../components/common/Select/Select';
 import { Loader } from '../../components/common/Loader/Loader';
+import { Image } from '../../components/common/Image/Image';
 import styles from './CatalogPage.module.scss';
-import { useAppSelector } from '@/store/hooks/useAppSelectors';
+import { useAppSelector } from '../../store/hooks/useAppSelectors';
 
 export const CatalogPage: React.FC = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useAppDispatch();
     const { cars, totalCount, isLoading, filters, pagination, sort } = useAppSelector(
-        (state: { cars: any; }) => state.cars
+        (state: any) => state.cars
     );
 
     const [showFilters, setShowFilters] = useState(false);
@@ -36,7 +37,6 @@ export const CatalogPage: React.FC = () => {
     }, [filters, pagination.page, sort, setSearchParams]);
 
     useEffect(() => {
-        // Вариант 1: Использование @ts-ignore
         // @ts-ignore
         dispatch(fetchCars({
             page: pagination.page,
@@ -44,14 +44,6 @@ export const CatalogPage: React.FC = () => {
             filters,
             sort
         }));
-
-        // Вариант 2: Использование as any
-        // (dispatch as any)(fetchCars({
-        //     page: pagination.page,
-        //     pageSize: pagination.pageSize,
-        //     filters,
-        //     sort
-        // }));
     }, [dispatch, pagination.page, pagination.pageSize, filters, sort]);
 
     const handlePageChange = (page: number) => {
@@ -74,9 +66,21 @@ export const CatalogPage: React.FC = () => {
 
     return (
         <div className={styles.catalogPage}>
+            <div className={styles.catalogHero}>
+                <Image
+                    src="/images/catalog-bg.jpg"
+                    alt="Catalog background"
+                    width="100%"
+                    height="300px"
+                    objectFit="cover"
+                />
+                <div className={styles.catalogHeroContent}>
+                    <h1>Каталог автомобилей</h1>
+                </div>
+            </div>
+
             <div className="container">
                 <div className={styles.header}>
-                    <h1>Каталог автомобилей</h1>
                     <div className={styles.controls}>
                         <button
                             className={styles.filterToggle}

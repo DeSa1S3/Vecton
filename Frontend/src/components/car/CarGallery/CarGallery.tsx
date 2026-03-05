@@ -22,45 +22,8 @@ export const CarGallery: React.FC<CarGalleryProps> = ({ images }) => {
 
     return (
         <div className={styles.gallery}>
-            <Swiper
-                spaceBetween={10}
-                navigation={true}
-                pagination={{ clickable: true }}
-                thumbs={{ swiper: thumbsSwiper }}
-                modules={[Navigation, Thumbs, FreeMode, Pagination]}
-                className={styles.mainSwiper}
-            >
-                {images.map((image) => (
-                    <SwiperSlide key={image.id}>
-                        <img
-                            src={image.image_url}
-                            alt={`Car ${image.id}`}
-                            className={styles.mainImage}
-                            onClick={() => setSelectedImage(image.id)}
-                        />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
 
-            <Swiper
-                onSwiper={setThumbsSwiper}
-                spaceBetween={10}
-                slidesPerView={4}
-                freeMode={true}
-                watchSlidesProgress={true}
-                modules={[FreeMode, Navigation, Thumbs]}
-                className={styles.thumbsSwiper}
-            >
-                {images.map((image) => (
-                    <SwiperSlide key={image.id}>
-                        <img
-                            src={image.image_url}
-                            alt={`Thumb ${image.id}`}
-                            className={styles.thumbImage}
-                        />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+
 
             {selectedImage && (
                 <div className={styles.modal} onClick={() => setSelectedImage(null)}>

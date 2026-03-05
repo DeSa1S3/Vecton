@@ -6,16 +6,17 @@ import axios, {
     AxiosResponse
 } from 'axios';
 import { ApiError } from '../../types/api.types';
-import { store } from '../../store';
-import { logout, refreshToken } from '../../store/slices/authSlice';
 import { API_ENDPOINTS } from '../../utils/constants';
+import { tokenManager } from './tokenmanager';
 
 class ApiClient {
     private instance: AxiosInstance;
 
     constructor() {
+        const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1/';
+
         this.instance = axios.create({
-            baseURL: process.env.REACT_APP_API_URL,
+            baseURL,
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -28,7 +29,7 @@ class ApiClient {
     private setupInterceptors() {
         this.instance.interceptors.request.use(
             (config: InternalAxiosRequestConfig) => {
-                const token = store.getState().auth.accessToken;
+                const token = tokenManager.getAccessToken();
                 if (token && config.headers) {
                     config.headers.Authorization = `Bearer ${token}`;
                 }
@@ -46,23 +47,24 @@ class ApiClient {
                     originalRequest._retry = true;
 
                     try {
-                        const refreshTokenValue = store.getState().auth.refreshToken;
-                        const baseURL = process.env.REACT_APP_API_URL;
+                        const refreshToken = tokenManager.getRefreshToken();
+                        const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1/';
 
                         const response = await axios.post(
                             `${baseURL}${API_ENDPOINTS.AUTH.REFRESH}`,
-                            { refresh: refreshTokenValue }
+                            { refresh: refreshToken }
                         );
 
-                        store.dispatch(refreshToken(response.data));
+                        const { access } = response.data;
+                        tokenManager.setTokens(access);
 
                         if (originalRequest.headers) {
-                            originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
+                            originalRequest.headers.Authorization = `Bearer ${access}`;
                         }
 
                         return this.instance(originalRequest);
                     } catch (refreshError) {
-                        store.dispatch(logout());
+                        tokenManager.clearTokens();
                         window.location.href = '/login';
                         return Promise.reject(refreshError);
                     }

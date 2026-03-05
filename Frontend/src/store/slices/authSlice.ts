@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { User, LoginRequest, RegisterRequest } from '../../types';
 import { authApi } from '../../services/api';
 import { LOCAL_STORAGE_KEYS } from '../../utils/constants';
+import { tokenManager } from '../../services/api/tokenmanager';
 import toast from 'react-hot-toast';
 
 interface AuthState {
@@ -15,11 +16,11 @@ interface AuthState {
 
 const initialState: AuthState = {
     user: null,
-    accessToken: localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN),
-    refreshToken: localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN),
+    accessToken: tokenManager.getAccessToken(),
+    refreshToken: tokenManager.getRefreshToken(),
     isLoading: false,
     error: null,
-    isAuthenticated: !!localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN),
+    isAuthenticated: !!tokenManager.getAccessToken(),
 };
 
 interface AuthResponse {
@@ -28,10 +29,6 @@ interface AuthResponse {
         access: string;
         refresh: string;
     };
-}
-
-interface TokenResponse {
-    access: string;
 }
 
 interface MessageResponse {
@@ -111,14 +108,13 @@ const authSlice = createSlice({
             state.accessToken = null;
             state.refreshToken = null;
             state.isAuthenticated = false;
-            localStorage.removeItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
-            localStorage.removeItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN);
+            tokenManager.clearTokens();
             localStorage.removeItem(LOCAL_STORAGE_KEYS.USER);
             toast.success('Выход выполнен');
         },
         refreshToken: (state: AuthState, action: PayloadAction<{ access: string }>) => {
             state.accessToken = action.payload.access;
-            localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, action.payload.access);
+            tokenManager.setTokens(action.payload.access);
         },
         clearError: (state: AuthState) => {
             state.error = null;
@@ -126,6 +122,7 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            // Login
             .addCase(login.pending, (state: AuthState) => {
                 state.isLoading = true;
                 state.error = null;
@@ -136,9 +133,10 @@ const authSlice = createSlice({
                 state.accessToken = action.payload.tokens.access;
                 state.refreshToken = action.payload.tokens.refresh;
                 state.isAuthenticated = true;
-                localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, action.payload.tokens.access);
-                localStorage.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, action.payload.tokens.refresh);
+
+                tokenManager.setTokens(action.payload.tokens.access, action.payload.tokens.refresh);
                 localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(action.payload.user));
+
                 toast.success('Вход выполнен успешно');
             })
             .addCase(login.rejected, (state: AuthState, action: PayloadAction<string | undefined>) => {
@@ -147,6 +145,7 @@ const authSlice = createSlice({
                 toast.error(action.payload || 'Ошибка входа');
             })
 
+            // Register
             .addCase(register.pending, (state: AuthState) => {
                 state.isLoading = true;
                 state.error = null;
@@ -157,9 +156,10 @@ const authSlice = createSlice({
                 state.accessToken = action.payload.tokens.access;
                 state.refreshToken = action.payload.tokens.refresh;
                 state.isAuthenticated = true;
-                localStorage.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, action.payload.tokens.access);
-                localStorage.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, action.payload.tokens.refresh);
+
+                tokenManager.setTokens(action.payload.tokens.access, action.payload.tokens.refresh);
                 localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(action.payload.user));
+
                 toast.success('Регистрация успешна');
             })
             .addCase(register.rejected, (state: AuthState, action: PayloadAction<string | undefined>) => {
@@ -168,6 +168,7 @@ const authSlice = createSlice({
                 toast.error(action.payload || 'Ошибка регистрации');
             })
 
+            // Get Me
             .addCase(getMe.pending, (state: AuthState) => {
                 state.isLoading = true;
             })
@@ -183,11 +184,12 @@ const authSlice = createSlice({
                 state.accessToken = null;
                 state.refreshToken = null;
                 state.isAuthenticated = false;
-                localStorage.removeItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
-                localStorage.removeItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN);
+
+                tokenManager.clearTokens();
                 localStorage.removeItem(LOCAL_STORAGE_KEYS.USER);
             })
 
+            // Update Profile
             .addCase(updateProfile.fulfilled, (state: AuthState, action: PayloadAction<User>) => {
                 state.user = action.payload;
                 localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(action.payload));

@@ -1,0 +1,290 @@
+.aboutPage {
+    overflow-x: hidden;
+}
+
+.hero {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    padding: 6rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"%3E%3Cpath d="M20 20 L80 20 L60 80 L40 80 Z" fill="white"/%3E%3C/svg%3E');
+    background-size: 100px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.history {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+}
+
+.historyGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.historyContent h2 {
+    font-size: 2.5rem;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.historyContent h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 3px;
+}
+
+.historyContent p {
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.statValue {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3b82f6;
+    margin-bottom: 0.5rem;
+}
+
+.statLabel {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.historyImage {
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    border-radius: 1rem;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+}
+
+.mission {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    text-align: center;
+}
+
+.mission h2 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.missionText {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+.features {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+}
+
+.features h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #0f172a;
+    margin-bottom: 3rem;
+}
+
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.feature {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+}
+
+.featureIcon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.feature h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #0f172a;
+}
+
+.feature p {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.team {
+    padding: 5rem 0;
+}
+
+.team h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #0f172a;
+    margin-bottom: 3rem;
+}
+
+.teamGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.teamCard {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s;
+    text-align: center;
+    padding-bottom: 1.5rem;
+}
+
+.teamCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+}
+
+.teamImage {
+    height: 250px;
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+    margin-bottom: 1.5rem;
+}
+
+.teamCard h3 {
+    font-size: 1.25rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+.teamCard p {
+    color: #64748b;
+}
+
+.cta {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+}
+
+.cta h2 {
+    font-size: 2rem;
+    color: #0f172a;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .teamGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .historyGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .featuresGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .teamGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .missionText {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+}

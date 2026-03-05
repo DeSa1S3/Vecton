@@ -1,72 +1,113 @@
-@import '../../../assets/styles/variables';
-@import '../../../assets/styles/mixins';
-
 .table {
-    width: 100%;
-    border: 1px solid $border-color;
-    border-radius: $radius-lg;
+    background-color: #ffffff;
+    border-radius: 1.5rem;
     overflow: hidden;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(203, 213, 225, 0.5);
 }
 
 .header {
     display: grid;
-    grid-template-columns: 1fr 100px 100px;
-    background-color: $gray-50;
-    padding: $spacing-md;
+    grid-template-columns: 2fr 1fr 1fr;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
     font-weight: 600;
-    color: $text-secondary;
-    border-bottom: 1px solid $border-color;
+    color: #475569;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
 }
 
 .body {
-    @include flex-column;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.body::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 8px;
+}
+
+.body::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 8px;
+}
+
+.body::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
 
 .row {
     display: grid;
-    grid-template-columns: 1fr 100px 100px;
-    padding: $spacing-md;
-    border-bottom: 1px solid $border-color;
+    grid-template-columns: 2fr 1fr 1fr;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
     cursor: pointer;
-    transition: background-color $transition-base $transition-timing;
+    transition: all 0.3s;
+}
 
-    &:hover {
-        background-color: $gray-50;
-    }
+.row:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.02), transparent);
+    transform: translateX(4px);
+    box-shadow: inset 4px 0 0 #3b82f6;
+}
 
-    &:last-child {
-        border-bottom: none;
-    }
+.row:last-child {
+    border-bottom: none;
 }
 
 .cell {
-    @include flex-center;
-    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    color: #1e293b;
 }
 
 .carInfo {
-    @include flex-column;
-    gap: $spacing-xs;
-
-    strong {
-        color: $text-primary;
-    }
-
-    span {
-        color: $text-secondary;
-        font-size: $font-size-sm;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
-.sales,
+.carInfo strong {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.carInfo span {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.sales {
+    font-weight: 600;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+}
+
 .views {
-    @include flex-center;
-    gap: $spacing-xs;
-    color: $text-secondary;
+    font-weight: 600;
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
 }
 
 .empty {
-    padding: $spacing-xl;
     text-align: center;
-    color: $text-secondary;
+    padding: 3rem 2rem;
+    color: #94a3b8;
+    font-size: 1rem;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    border-radius: 1.5rem;
+    border: 1px solid #e2e8f0;
 }

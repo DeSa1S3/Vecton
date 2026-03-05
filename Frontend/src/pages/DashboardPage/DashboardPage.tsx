@@ -66,51 +66,35 @@ export const DashboardPage: React.FC = () => {
                     <StatsCard
                         title="Всего автомобилей"
                         value={stats.cars.total}
-                        icon={<FiHome />}
-                        color="#3b82f6"
-                    />
+                        color="#3b82f6" icon={undefined} />
                     <StatsCard
                         title="В наличии"
                         value={stats.cars.in_stock}
-                        icon={<FiHome />}
-                        color="#10b981"
-                    />
+                        color="#10b981" icon={undefined} />
                     <StatsCard
                         title="Продано"
                         value={stats.cars.sold}
-                        icon={<FiTruck />}
-                        color="#ef4444"
-                    />
+                        color="#ef4444" icon={undefined} />
                     <StatsCard
                         title="Просмотры"
                         value={stats.cars.total_views}
-                        icon={<FiEye />}
-                        color="#f59e0b"
-                    />
+                        color="#f59e0b" icon={undefined} />
                     <StatsCard
                         title="Заказы"
                         value={stats.orders.total}
-                        icon={<FiShoppingBag />}
-                        color="#8b5cf6"
-                    />
+                        color="#8b5cf6" icon={undefined} />
                     <StatsCard
                         title="Новые заказы"
                         value={stats.orders.new}
-                        icon={<FiShoppingBag />}
-                        color="#ec4899"
-                    />
+                        color="#ec4899" icon={undefined} />
                     <StatsCard
                         title="Пользователи"
                         value={stats.users.total}
-                        icon={<FiUsers />}
-                        color="#6366f1"
-                    />
+                        color="#6366f1" icon={undefined} />
                     <StatsCard
                         title="Новые сегодня"
                         value={stats.users.new_today}
-                        icon={<FiUsers />}
-                        color="#14b8a6"
-                    />
+                        color="#14b8a6" icon={undefined} />
                 </div>
 
                 <div className={styles.chartSection}>

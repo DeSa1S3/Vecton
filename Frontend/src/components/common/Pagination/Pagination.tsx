@@ -52,7 +52,6 @@ export const Pagination: React.FC<PaginationProps> = ({
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
             >
-                <FiChevronLeft />
             </button>
 
             {getPageNumbers().map((page, index) => (
@@ -72,7 +71,6 @@ export const Pagination: React.FC<PaginationProps> = ({
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
             >
-                <FiChevronRight />
             </button>
         </div>
     );

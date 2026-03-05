@@ -1,99 +1,149 @@
-@import '../../assets/styles/variables';
-@import '../../assets/styles/mixins';
-
 .carDetailPage {
-    padding: $spacing-xl 0;
-}
-
-.loading {
-    @include flex-center;
-    min-height: 500px;
+    padding: 2rem 0;
 }
 
 .breadcrumbs {
-    margin-bottom: $spacing-lg;
+    margin-bottom: 2rem;
 }
 
 .backButton {
-    @include button-reset;
-    color: $primary;
-    font-weight: 500;
+    border: none;
+    background: none;
+    color: #64748b;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border: 1px solid #e2e8f0;
+}
 
-    &:hover {
-        text-decoration: underline;
-    }
+.backButton:hover {
+    color: #3b82f6;
+    transform: translateX(-4px);
+    border-color: #3b82f6;
 }
 
 .header {
-    @include flex-between;
-    margin-bottom: $spacing-xl;
-
-    h1 {
-        margin: 0;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 
-.actions {
-    @include flex-center;
-    gap: $spacing-md;
+.header h1 {
+    font-size: 2.5rem;
+    color: #0f172a;
+    margin: 0;
+    background: linear-gradient(135deg, #0f172a, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .mainInfo {
-    margin-top: $spacing-xl;
+    margin-top: 2rem;
 }
 
 .infoGrid {
     display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: $spacing-xl;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
 
-    @include lg {
-        grid-template-columns: 1fr;
-    }
+.leftColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .priceSection {
-    @include flex-between;
-    margin-bottom: $spacing-lg;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: 1.5rem;
+    border: 1px solid #e2e8f0;
 }
 
 .price {
-    font-size: $font-size-3xl;
+    font-size: 3rem;
     font-weight: 700;
-    color: $primary;
+    color: #3b82f6;
 }
 
 .status {
-    display: inline-block;
-    padding: $spacing-xs $spacing-md;
-    border-radius: $radius-full;
-    color: $white;
-    font-weight: 500;
-    font-size: $font-size-sm;
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .quickSpecs {
-    @include flex-center;
-    gap: $spacing-xl;
-    padding: $spacing-lg 0;
-    border-top: 1px solid $border-color;
-    border-bottom: 1px solid $border-color;
-    margin-bottom: $spacing-xl;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
 }
 
 .specItem {
-    @include flex-center;
-    gap: $spacing-sm;
-    color: $text-secondary;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #475569;
 }
 
-.description,
-.equipment {
-    margin-top: $spacing-xl;
+.specItem svg {
+    color: #3b82f6;
+    width: 20px;
+    height: 20px;
+}
 
-    h3 {
-        margin-bottom: $spacing-md;
-    }
+.specItem span {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.description {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.description h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #0f172a;
+}
+
+.description p {
+    color: #475569;
+    line-height: 1.8;
+}
+
+.equipment {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.equipment h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #0f172a;
 }
 
 .equipmentList {
@@ -101,35 +151,85 @@
     padding: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-md;
+    gap: 1rem;
+}
 
-    li {
-        padding: $spacing-sm;
-        background-color: $gray-50;
-        border-radius: $radius-lg;
-    }
+.equipmentList li {
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    border-radius: 0.75rem;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.equipmentList li strong {
+    color: #3b82f6;
+    margin-right: 0.5rem;
 }
 
 .similar {
-    margin-top: $spacing-3xl;
+    margin-top: 4rem;
+}
 
-    h2 {
-        margin-bottom: $spacing-xl;
-    }
+.similar h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #0f172a;
+    text-align: center;
 }
 
 .similarGrid {
-    @include grid(4, $spacing-lg);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
 
-    @include lg {
-        @include grid(3, $spacing-lg);
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+
+@media (max-width: 1024px) {
+    .infoGrid {
+        grid-template-columns: 1fr;
     }
 
-    @include md {
-        @include grid(2, $spacing-md);
+    .similarGrid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    @include sm {
-        @include grid(1, $spacing-md);
+    .header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .carDetailPage {
+        padding: 1rem 0;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .priceSection {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .quickSpecs {
+        grid-template-columns: 1fr;
+    }
+
+    .equipmentList {
+        grid-template-columns: 1fr;
+    }
+
+    .similarGrid {
+        grid-template-columns: 1fr;
     }
 }

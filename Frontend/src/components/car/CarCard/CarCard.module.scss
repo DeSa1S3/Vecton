@@ -1,115 +1,229 @@
-@import '../../../assets/styles/variables';
-@import '../../../assets/styles/mixins';
-
 .card {
-    background-color: $white;
-    border-radius: $radius-xl;
+    background: #ffffff;
+    border-radius: 1.5rem;
     overflow: hidden;
-    box-shadow: $shadow-md;
-    transition: all $transition-base $transition-timing;
-
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow: $shadow-lg;
-    }
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(203, 213, 225, 0.5);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
-.imageLink {
-    display: block;
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-color: #60a5fa;
+}
+
+.cardLink {
     text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.imageContainer {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
 }
 
 .image {
-    position: relative;
-    aspect-ratio: 16/9;
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform $transition-slow $transition-timing;
-    }
-
-    &:hover img {
-        transform: scale(1.05);
-    }
+.card:hover .image {
+    transform: scale(1.1);
 }
 
 .placeholder {
-    @include absolute-fill;
-    @include flex-center;
-    background-color: $gray-200;
-    color: $gray-500;
-    font-size: $font-size-sm;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
 }
 
 .status {
     position: absolute;
-    top: $spacing-md;
-    right: $spacing-md;
-    padding: $spacing-xs $spacing-sm;
-    border-radius: $radius-full;
-    color: $white;
-    font-size: $font-size-xs;
-    font-weight: 500;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     z-index: 1;
 }
 
+.favoriteButton {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 2;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.favoriteButton:hover {
+    transform: scale(1.1);
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.favoriteButton.active {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.favoriteButton svg {
+    width: 18px;
+    height: 18px;
+}
+
 .content {
-    padding: $spacing-lg;
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
 }
 
 .title {
-    display: block;
-    font-size: $font-size-lg;
-    font-weight: 600;
-    color: $text-primary;
-    text-decoration: none;
-    margin-bottom: $spacing-sm;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
 
-    &:hover {
-        color: $primary;
-    }
+.year {
+    margin-bottom: 0.5rem;
+}
+
+.year span {
+    font-size: 0.875rem;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.year span::before {
+    content: '📅';
+    font-size: 0.875rem;
 }
 
 .price {
-    font-size: $font-size-2xl;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: $primary;
-    margin-bottom: $spacing-sm;
+    color: #3b82f6;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.price::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 2px;
 }
 
 .specs {
-    @include flex-center;
-    gap: $spacing-md;
-    color: $text-secondary;
-    font-size: $font-size-sm;
-    margin-bottom: $spacing-md;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
 
-    span {
-        @include flex-center;
-        gap: $spacing-xs;
+.spec {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #475569;
+}
 
-        &:not(:last-child)::after {
-            content: '•';
-            margin-left: $spacing-md;
-        }
-    }
+.spec svg {
+    color: #3b82f6;
+    width: 16px;
+    height: 16px;
+}
+
+.mileage {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.mileage::before {
+    content: '🔧';
+    font-size: 0.875rem;
+}
+
+.actions {
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
 .footer {
-    @include flex-between;
-}
-
-.stats {
-    @include flex-center;
-    gap: $spacing-md;
-    color: $text-secondary;
-    font-size: $font-size-sm;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #94a3b8;
 }
 
 .views {
-    @include flex-center;
-    gap: $spacing-xs;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.views::before {
+    content: '👁️';
+    font-size: 0.75rem;
+}
+
+.photos {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }

@@ -4,22 +4,31 @@ import { useAppDispatch } from '../../store/hooks';
 import { fetchCars } from '../../store/slices/carsSlice';
 import { CarCard } from '../../components/car/CarCard/CarCard';
 import { Button } from '../../components/common';
+import { Image } from '../../components/common/Image/Image';
 import { Car } from '../../types';
 import styles from './HomePage.module.scss';
-import { useAppSelector } from '@/store/hooks/useAppSelectors';
+import { useAppSelector } from '../../store/hooks/useAppSelectors';
 
 export const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { cars, isLoading } = useAppSelector((state: { cars: any; }) => state.cars);
+    const { cars, isLoading } = useAppSelector((state: any) => state.cars);
 
     useEffect(() => {
-        // @ts-ignore - временное игнорирование ошибок типов
+        // @ts-ignore
         dispatch(fetchCars({ pageSize: 8 }));
     }, [dispatch]);
 
     return (
         <div className={styles.homePage}>
             <section className={styles.hero}>
+                <div className={styles.heroOverlay} />
+                <Image
+                    src="/images/hero-bg.jpg"
+                    alt="Hero background"
+                    width="100%"
+                    height="600px"
+                    objectFit="cover"
+                />
                 <div className={styles.heroContent}>
                     <h1 className={styles.heroTitle}>
                         Найдите свой идеальный автомобиль

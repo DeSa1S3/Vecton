@@ -1,141 +1,209 @@
-@import '../../../assets/styles/variables';
-@import '../../../assets/styles/mixins';
-
 .header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: $z-index-sticky;
+    z-index: 1000;
     background-color: transparent;
-    transition: all $transition-base $transition-timing;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 1.5rem 0;
+}
 
-    &.scrolled {
-        background-color: $white;
-        box-shadow: $shadow-md;
-    }
+.header.scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 0.75rem 0;
 }
 
 .container {
-    @include container;
-    @include flex-between;
-    height: 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.logo {
-    @include flex-center;
+.logo a {
+    text-decoration: none;
+}
 
-    &Text {
-        font-size: $font-size-2xl;
-        font-weight: 700;
-        color: $primary;
-    }
+.logoText {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
 }
 
 .nav {
-    @include flex-center;
-    gap: $spacing-xl;
+    display: flex;
+    gap: 2rem;
+}
 
-    @include md {
-        display: none;
+.navLink {
+    color: #1e293b;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+    position: relative;
+    padding: 0.25rem 0;
+}
 
-        &.active {
-            @include flex-column;
-            position: absolute;
-            top: 80px;
-            left: 0;
-            right: 0;
-            background-color: $white;
-            padding: $spacing-lg;
-            gap: $spacing-md;
-            box-shadow: $shadow-md;
-        }
-    }
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
 
-    &Link {
-        color: $text-primary;
-        font-weight: 500;
-        transition: color $transition-base $transition-timing;
+.navLink:hover {
+    color: #3b82f6;
+}
 
-        &:hover {
-            color: $primary;
-        }
+.navLink:hover::after {
+    transform: scaleX(0.5);
+}
 
-        &.active {
-            color: $primary;
-        }
-    }
+.navLink.active {
+    color: #3b82f6;
+}
+
+.navLink.active::after {
+    transform: scaleX(1);
 }
 
 .actions {
-    @include flex-center;
-    gap: $spacing-sm;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .actionButton {
-    @include flex-center;
-    position: relative;
     width: 40px;
     height: 40px;
-    border-radius: $radius-full;
-    color: $text-primary;
-    transition: all $transition-base $transition-timing;
-
-    &:hover {
-        background-color: $gray-100;
-        color: $primary;
-    }
+    border: none;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #475569;
+    position: relative;
 }
 
-.profileButton {
-    @include flex-center;
-    width: 40px;
-    height: 40px;
-    border-radius: $radius-full;
-    overflow: hidden;
-    background-color: $gray-200;
+.actionButton:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    svg {
-        width: 20px;
-        height: 20px;
-        color: $text-secondary;
-    }
+.actionButton svg {
+    width: 20px;
+    height: 20px;
 }
 
 .badge {
     position: absolute;
     top: -4px;
     right: -4px;
-    @include flex-center;
     min-width: 18px;
     height: 18px;
-    padding: 0 $spacing-xs;
-    background-color: $danger;
-    color: $white;
-    font-size: $font-size-xs;
+    padding: 0 4px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #ffffff;
+    font-size: 0.75rem;
     font-weight: 600;
-    border-radius: $radius-full;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #f1f5f9;
+    border-radius: 9999px;
+    color: #475569;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.profileButton:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .menuButton {
-    @include button-reset;
-    display: none;
     width: 40px;
     height: 40px;
-    @include flex-center;
+    border: none;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
 
-    @include md {
+.menuButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 1024px) {
+    .nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: linear-gradient(135deg, #ffffff, #f8fafc);
+        flex-direction: column;
+        padding: 5rem 2rem 2rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transition: right 0.3s;
+        z-index: 999;
+    }
+
+    .nav.active {
+        right: 0;
+    }
+
+    .menuButton {
         display: flex;
     }
 
-    svg {
-        width: 24px;
-        height: 24px;
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem 0;
+    }
+
+    .logoText {
+        font-size: 1.5rem;
     }
 }

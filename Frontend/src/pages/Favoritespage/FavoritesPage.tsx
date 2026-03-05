@@ -4,17 +4,18 @@ import { useAppDispatch } from '../../store/hooks';
 import { fetchFavorites, clearFavorites, removeFromFavorites } from '../../store/slices/favoritesSlice';
 import { CarCard } from '../../components/car/CarCard/CarCard';
 import { Button, Loader } from '../../components/common';
+import { Image } from '../../components/common/Image/Image';
 import { FiHeart } from 'react-icons/fi';
 import styles from './FavoritesPage.module.scss';
-import { useAppSelector } from '@/store/hooks/useAppSelectors';
+import { useAppSelector } from '../../store/hooks/useAppSelectors';
 
 export const FavoritesPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { items, isLoading } = useAppSelector((state: { favorites: any; }) => state.favorites);
+    const { items, isLoading } = useAppSelector((state: any) => state.favorites);
 
     useEffect(() => {
-        // @ts-ignore - временное игнорирование ошибок типов
+        // @ts-ignore
         dispatch(fetchFavorites());
     }, [dispatch]);
 
@@ -42,7 +43,14 @@ export const FavoritesPage: React.FC = () => {
         return (
             <div className={styles.empty}>
                 <div className={styles.emptyContent}>
-                    <FiHeart className={styles.emptyIcon} />
+                    <Image
+                        src="/images/empty-favorites.svg"
+                        alt="Empty favorites"
+                        width="200px"
+                        height="200px"
+                        objectFit="contain"
+                        fallbackSrc="/images/empty-placeholder.jpg"
+                    />
                     <h2>Избранное пусто</h2>
                     <p>Добавляйте понравившиеся автомобили в избранное</p>
                     <Button onClick={() => navigate('/catalog')}>
@@ -64,7 +72,7 @@ export const FavoritesPage: React.FC = () => {
                 </div>
 
                 <div className={styles.grid}>
-                    {items.map((item: { id: number; car: any; }) => (
+                    {items.map((item: any) => (
                         <CarCard
                             key={item.id}
                             car={item.car}

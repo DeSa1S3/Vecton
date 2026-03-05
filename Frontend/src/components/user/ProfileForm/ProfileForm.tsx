@@ -109,20 +109,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ user }) => {
 
             <div className={styles.phoneInput}>
                 <label className="form-label">Телефон</label>
-                <PhoneInput
-                    country={'ru'}
-                    value={formik.values.phone}
-                    onChange={(phone: string) => formik.setFieldValue('phone', phone)}
-                    onBlur={() => formik.setFieldTouched('phone', true)}
-                    inputClass={formik.touched.phone && formik.errors.phone ? 'error' : ''}
-                    containerClass={styles.phoneContainer}
-                    inputStyle={{
-                        width: '100%',
-                        height: '42px',
-                        border: `1px solid ${formik.touched.phone && formik.errors.phone ? '#ef4444' : '#d1d5db'}`,
-                        borderRadius: '8px',
-                    }}
-                />
                 {formik.touched.phone && formik.errors.phone && (
                     <div className="error-message">{String(formik.errors.phone)}</div>
                 )}

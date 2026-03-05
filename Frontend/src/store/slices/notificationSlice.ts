@@ -22,23 +22,7 @@ interface FetchNotificationsParams {
     page?: number;
 }
 
-interface MarkAsReadResponse {
-    notificationIds?: number[];
-    response: any;
-}
-
-export const fetchNotifications = createAsyncThunk(
-    'notifications/fetchNotifications',
-    async (params: FetchNotificationsParams | undefined, { rejectWithValue }) => {
-        try {
-            const response = await notificationsApi.getNotifications(params);
-            return response;
-        } catch (error: any) {
-            return rejectWithValue(error.detail || 'Ошибка загрузки уведомлений');
-        }
-    }
-);
-
+// ✅ Один markAsRead (удалите дубликат)
 export const markAsRead = createAsyncThunk(
     'notifications/markAsRead',
     async (notificationIds: number[] | undefined, { rejectWithValue }) => {
@@ -52,15 +36,14 @@ export const markAsRead = createAsyncThunk(
     }
 );
 
-export const markAsRead_v2 = createAsyncThunk(
-    'notifications/markAsRead',
-    async ({ notificationIds }: { notificationIds?: number[] }, { rejectWithValue }) => {
+export const fetchNotifications = createAsyncThunk(
+    'notifications/fetchNotifications',
+    async (params: FetchNotificationsParams | undefined, { rejectWithValue }) => {
         try {
-            const response = await notificationsApi.markAsRead(notificationIds);
-            return { notificationIds, response };
+            const response = await notificationsApi.getNotifications(params);
+            return response;
         } catch (error: any) {
-            toast.error(error.detail || 'Ошибка при обновлении уведомлений');
-            return rejectWithValue(error);
+            return rejectWithValue(error.detail || 'Ошибка загрузки уведомлений');
         }
     }
 );
