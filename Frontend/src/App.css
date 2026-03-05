@@ -1,0 +1,7 @@
+@import './assets/styles/variables';
+@import './assets/styles/mixins';
+@import './assets/styles/globals';
+
+.App {
+  min-height: 100vh;
+}

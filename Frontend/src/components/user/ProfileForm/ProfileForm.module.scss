@@ -1,0 +1,31 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.form {
+    @include flex-column;
+    gap: $spacing-lg;
+    max-width: 600px;
+
+    h2 {
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+}
+
+.phoneInput {
+    @include flex-column;
+    gap: $spacing-xs;
+}
+
+.phoneContainer {
+    width: 100%;
+}
+
+.actions {
+    margin-top: $spacing-xl;
+}

@@ -1,0 +1,135 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
+
+.carDetailPage {
+    padding: $spacing-xl 0;
+}
+
+.loading {
+    @include flex-center;
+    min-height: 500px;
+}
+
+.breadcrumbs {
+    margin-bottom: $spacing-lg;
+}
+
+.backButton {
+    @include button-reset;
+    color: $primary;
+    font-weight: 500;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.header {
+    @include flex-between;
+    margin-bottom: $spacing-xl;
+
+    h1 {
+        margin: 0;
+    }
+}
+
+.actions {
+    @include flex-center;
+    gap: $spacing-md;
+}
+
+.mainInfo {
+    margin-top: $spacing-xl;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: $spacing-xl;
+
+    @include lg {
+        grid-template-columns: 1fr;
+    }
+}
+
+.priceSection {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+}
+
+.price {
+    font-size: $font-size-3xl;
+    font-weight: 700;
+    color: $primary;
+}
+
+.status {
+    display: inline-block;
+    padding: $spacing-xs $spacing-md;
+    border-radius: $radius-full;
+    color: $white;
+    font-weight: 500;
+    font-size: $font-size-sm;
+}
+
+.quickSpecs {
+    @include flex-center;
+    gap: $spacing-xl;
+    padding: $spacing-lg 0;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    margin-bottom: $spacing-xl;
+}
+
+.specItem {
+    @include flex-center;
+    gap: $spacing-sm;
+    color: $text-secondary;
+}
+
+.description,
+.equipment {
+    margin-top: $spacing-xl;
+
+    h3 {
+        margin-bottom: $spacing-md;
+    }
+}
+
+.equipmentList {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md;
+
+    li {
+        padding: $spacing-sm;
+        background-color: $gray-50;
+        border-radius: $radius-lg;
+    }
+}
+
+.similar {
+    margin-top: $spacing-3xl;
+
+    h2 {
+        margin-bottom: $spacing-xl;
+    }
+}
+
+.similarGrid {
+    @include grid(4, $spacing-lg);
+
+    @include lg {
+        @include grid(3, $spacing-lg);
+    }
+
+    @include md {
+        @include grid(2, $spacing-md);
+    }
+
+    @include sm {
+        @include grid(1, $spacing-md);
+    }
+}

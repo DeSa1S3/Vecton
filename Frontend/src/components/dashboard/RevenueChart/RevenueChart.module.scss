@@ -1,0 +1,38 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.chart {
+    @include flex-column;
+    gap: $spacing-xl;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg;
+}
+
+.stat {
+    text-align: center;
+    padding: $spacing-md;
+    background-color: $gray-50;
+    border-radius: $radius-lg;
+
+    .label {
+        display: block;
+        color: $text-secondary;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-xs;
+    }
+
+    .value {
+        font-size: $font-size-xl;
+        font-weight: 600;
+        color: $primary;
+    }
+}
+
+.chartContainer {
+    height: 400px;
+    width: 100%;
+}

@@ -1,13 +1,21 @@
-import { useAppSelector } from '../store/hooks'
+import { useAppSelector } from '@/store/hooks/useAppSelectors';
+import { useAppDispatch } from '../store';
+import { logout } from '../store/slices/authSlice';
 
 export const useAuth = () => {
-    const { user, isAuthenticated, tokens } = useAppSelector((state) => state.auth)
+    const dispatch = useAppDispatch();
+    const { user, isAuthenticated, isLoading } = useAppSelector((state: { auth: any; }) => state.auth);
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
 
     return {
         user,
         isAuthenticated,
-        tokens,
+        isLoading,
+        logout: handleLogout,
         isManager: user?.role === 'manager' || user?.role === 'admin',
         isAdmin: user?.role === 'admin',
-    }
-}
+    };
+};

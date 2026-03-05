@@ -1,0 +1,141 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: $z-index-sticky;
+    background-color: transparent;
+    transition: all $transition-base $transition-timing;
+
+    &.scrolled {
+        background-color: $white;
+        box-shadow: $shadow-md;
+    }
+}
+
+.container {
+    @include container;
+    @include flex-between;
+    height: 80px;
+}
+
+.logo {
+    @include flex-center;
+
+    &Text {
+        font-size: $font-size-2xl;
+        font-weight: 700;
+        color: $primary;
+    }
+}
+
+.nav {
+    @include flex-center;
+    gap: $spacing-xl;
+
+    @include md {
+        display: none;
+
+        &.active {
+            @include flex-column;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background-color: $white;
+            padding: $spacing-lg;
+            gap: $spacing-md;
+            box-shadow: $shadow-md;
+        }
+    }
+
+    &Link {
+        color: $text-primary;
+        font-weight: 500;
+        transition: color $transition-base $transition-timing;
+
+        &:hover {
+            color: $primary;
+        }
+
+        &.active {
+            color: $primary;
+        }
+    }
+}
+
+.actions {
+    @include flex-center;
+    gap: $spacing-sm;
+}
+
+.actionButton {
+    @include flex-center;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-full;
+    color: $text-primary;
+    transition: all $transition-base $transition-timing;
+
+    &:hover {
+        background-color: $gray-100;
+        color: $primary;
+    }
+}
+
+.profileButton {
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-full;
+    overflow: hidden;
+    background-color: $gray-200;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+        color: $text-secondary;
+    }
+}
+
+.badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    @include flex-center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 $spacing-xs;
+    background-color: $danger;
+    color: $white;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    border-radius: $radius-full;
+}
+
+.menuButton {
+    @include button-reset;
+    display: none;
+    width: 40px;
+    height: 40px;
+    @include flex-center;
+
+    @include md {
+        display: flex;
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}

@@ -1,0 +1,53 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.pagination {
+    @include flex-center;
+    gap: $spacing-xs;
+    margin-top: $spacing-xl;
+}
+
+.pageButton {
+    @include flex-center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 $spacing-sm;
+    border: 1px solid $border-color;
+    background-color: $white;
+    color: $text-primary;
+    font-size: $font-size-md;
+    font-weight: 500;
+    border-radius: $radius-lg;
+    cursor: pointer;
+    transition: all $transition-base $transition-timing;
+
+    &:hover:not(:disabled) {
+        background-color: $gray-100;
+        border-color: $gray-400;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &.active {
+        background-color: $primary;
+        border-color: $primary;
+        color: $white;
+
+        &:hover {
+            background-color: $primary-dark;
+        }
+    }
+
+    &.dots {
+        border: none;
+        background: none;
+        cursor: default;
+
+        &:hover {
+            background: none;
+        }
+    }
+}

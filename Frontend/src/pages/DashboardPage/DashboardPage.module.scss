@@ -1,0 +1,82 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
+
+.dashboardPage {
+    padding: $spacing-xl 0;
+    min-height: 500px;
+    background-color: $gray-50;
+}
+
+.loading {
+    @include flex-center;
+    min-height: 500px;
+}
+
+.header {
+    margin-bottom: $spacing-xl;
+
+    h1 {
+        margin-bottom: $spacing-xs;
+    }
+
+    p {
+        color: $text-secondary;
+    }
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+
+    @include lg {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include md {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include sm {
+        grid-template-columns: 1fr;
+    }
+}
+
+.chartSection {
+    background-color: $white;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    box-shadow: $shadow-md;
+}
+
+.sectionHeader {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+
+    h2 {
+        margin: 0;
+    }
+}
+
+.tablesGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xl;
+
+    @include md {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tableCard {
+    background-color: $white;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $shadow-md;
+
+    h2 {
+        margin-bottom: $spacing-lg;
+    }
+}

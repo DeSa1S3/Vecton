@@ -1,0 +1,36 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.form {
+    @include flex-column;
+    gap: $spacing-lg;
+}
+
+.carInfo {
+    display: flex;
+    gap: $spacing-md;
+    padding: $spacing-md;
+    background-color: $gray-50;
+    border-radius: $radius-lg;
+    margin-bottom: $spacing-md;
+}
+
+.carImage {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: $radius-md;
+}
+
+.carPrice {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: $primary;
+    margin-top: $spacing-xs;
+}
+
+.actions {
+    display: flex;
+    gap: $spacing-md;
+    margin-top: $spacing-lg;
+}

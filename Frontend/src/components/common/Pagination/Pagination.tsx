@@ -1,47 +1,49 @@
-import React from 'react'
-import styles from './Pagination.module.scss'
+import React from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import styles from './Pagination.module.scss';
 
 interface PaginationProps {
-    currentPage: number
-    totalPages: number
-    onPageChange: (page: number) => void
-    siblingCount?: number
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
     currentPage,
     totalPages,
     onPageChange,
-    siblingCount = 1,
 }) => {
     const getPageNumbers = () => {
-        const pages: (number | string)[] = []
+        const delta = 2;
+        const range: (number | string)[] = [];
+        const rangeWithDots: (number | string)[] = [];
 
-        pages.push(1)
-
-        const leftSibling = Math.max(2, currentPage - siblingCount)
-        const rightSibling = Math.min(totalPages - 1, currentPage + siblingCount)
-
-        if (leftSibling > 2) {
-            pages.push('...')
+        for (
+            let i = 1;
+            i <= Math.min(2 * delta + 1, totalPages);
+            i++
+        ) {
+            range.push(i);
         }
 
-        for (let i = leftSibling; i <= rightSibling; i++) {
-            pages.push(i)
+        if (currentPage > delta + 2) {
+            rangeWithDots.push(1, '...');
+            rangeWithDots.push(...range.slice(1));
+        } else {
+            rangeWithDots.push(...range);
         }
 
-        if (rightSibling < totalPages - 1) {
-            pages.push('...')
+        if (currentPage < totalPages - delta - 1) {
+            if (rangeWithDots[rangeWithDots.length - 1] !== '...') {
+                rangeWithDots.push('...');
+            }
+            rangeWithDots.push(totalPages);
         }
 
-        if (totalPages > 1) {
-            pages.push(totalPages)
-        }
+        return rangeWithDots;
+    };
 
-        return pages
-    }
-
-    const pages = getPageNumbers()
+    if (totalPages <= 1) return null;
 
     return (
         <div className={styles.pagination}>
@@ -50,10 +52,10 @@ export const Pagination: React.FC<PaginationProps> = ({
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
             >
-                ←
+                <FiChevronLeft />
             </button>
 
-            {pages.map((page, index) => (
+            {getPageNumbers().map((page, index) => (
                 <button
                     key={index}
                     className={`${styles.pageButton} ${page === currentPage ? styles.active : ''
@@ -70,8 +72,8 @@ export const Pagination: React.FC<PaginationProps> = ({
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
             >
-                →
+                <FiChevronRight />
             </button>
         </div>
-    )
-}
+    );
+};

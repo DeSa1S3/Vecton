@@ -1,0 +1,21 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
+
+.profilePage {
+    padding: $spacing-xl 0;
+
+    h1 {
+        margin-bottom: $spacing-xl;
+    }
+}
+
+.content {
+    background-color: $white;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+}
+
+.tabContent {
+    padding: $spacing-xl;
+}

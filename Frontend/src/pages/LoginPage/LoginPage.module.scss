@@ -1,0 +1,68 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
+
+.loginPage {
+    min-height: calc(100vh - 80px);
+    @include flex-center;
+    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+    padding: $spacing-xl;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.card {
+    background-color: $white;
+    border-radius: $radius-2xl;
+    padding: $spacing-2xl;
+    box-shadow: $shadow-xl;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+
+    h1 {
+        margin-bottom: $spacing-sm;
+    }
+
+    p {
+        color: $text-secondary;
+    }
+}
+
+.form {
+    @include flex-column;
+    gap: $spacing-lg;
+}
+
+.forgotPassword {
+    text-align: right;
+
+    a {
+        color: $text-secondary;
+        font-size: $font-size-sm;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+}
+
+.footer {
+    margin-top: $spacing-xl;
+    text-align: center;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $border-color;
+
+    a {
+        color: $primary;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

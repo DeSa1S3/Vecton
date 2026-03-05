@@ -1,0 +1,66 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.footer {
+    background-color: $gray-900;
+    color: $white;
+    padding: $spacing-3xl 0 $spacing-xl;
+    margin-top: auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-xl;
+    margin-bottom: $spacing-2xl;
+
+    @include lg {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include sm {
+        grid-template-columns: 1fr;
+    }
+}
+
+.column {
+    h3 {
+        color: $white;
+        margin-bottom: $spacing-md;
+    }
+
+    h4 {
+        color: $white;
+        margin-bottom: $spacing-md;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin-bottom: $spacing-sm;
+
+            a {
+                color: $gray-400;
+                text-decoration: none;
+                transition: color $transition-base $transition-timing;
+
+                &:hover {
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    p {
+        color: $gray-400;
+    }
+}
+
+.bottom {
+    padding-top: $spacing-xl;
+    border-top: 1px solid $gray-800;
+    text-align: center;
+    color: $gray-500;
+}

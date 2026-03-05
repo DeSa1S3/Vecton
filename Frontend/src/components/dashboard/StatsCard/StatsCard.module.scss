@@ -1,0 +1,42 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.card {
+    background-color: $white;
+    border-radius: $radius-xl;
+    padding: $spacing-lg;
+    box-shadow: $shadow-md;
+    @include flex-center;
+    gap: $spacing-md;
+    transition: all $transition-base $transition-timing;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+}
+
+.icon {
+    @include flex-center;
+    width: 48px;
+    height: 48px;
+    border-radius: $radius-lg;
+    font-size: $font-size-2xl;
+}
+
+.content {
+    flex: 1;
+}
+
+.title {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-xs;
+}
+
+.value {
+    font-size: $font-size-2xl;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0;
+}

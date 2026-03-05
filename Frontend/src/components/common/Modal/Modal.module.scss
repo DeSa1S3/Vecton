@@ -1,0 +1,74 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.overlay {
+    @include absolute-fill;
+    position: fixed;
+    background-color: rgba($black, 0.5);
+    @include flex-center;
+    z-index: $z-index-modal;
+    padding: $spacing-md;
+}
+
+.modal {
+    background-color: $white;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-xl;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+
+    &.sm {
+        width: 400px;
+    }
+
+    &.md {
+        width: 600px;
+    }
+
+    &.lg {
+        width: 800px;
+    }
+}
+
+.header {
+    @include flex-between;
+    padding: $spacing-lg;
+    border-bottom: 1px solid $border-color;
+}
+
+.title {
+    margin: 0;
+    font-size: $font-size-xl;
+}
+
+.closeButton {
+    @include button-reset;
+    @include flex-center;
+    width: 32px;
+    height: 32px;
+    border-radius: $radius-full;
+    color: $gray-500;
+    transition: all $transition-base $transition-timing;
+
+    &:hover {
+        background-color: $gray-100;
+        color: $gray-700;
+    }
+}
+
+.content {
+    padding: $spacing-lg;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

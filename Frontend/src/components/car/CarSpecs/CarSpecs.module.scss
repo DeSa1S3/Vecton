@@ -1,0 +1,37 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.specs {
+    margin-top: $spacing-xl;
+
+    h3 {
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md;
+
+    @include sm {
+        grid-template-columns: 1fr;
+    }
+}
+
+.spec {
+    display: flex;
+    justify-content: space-between;
+    padding: $spacing-sm $spacing-md;
+    background-color: $gray-50;
+    border-radius: $radius-lg;
+
+    .label {
+        color: $text-secondary;
+        font-size: $font-size-sm;
+    }
+
+    .value {
+        font-weight: 500;
+    }
+}

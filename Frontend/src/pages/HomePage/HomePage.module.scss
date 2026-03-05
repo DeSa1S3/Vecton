@@ -1,0 +1,118 @@
+@import '../../assets/styles/variables';
+@import '../../assets/styles/mixins';
+
+.homePage {
+    @include flex-column;
+}
+
+.hero {
+    position: relative;
+    min-height: 600px;
+    @include flex-center;
+    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+    color: $white;
+    text-align: center;
+
+    &Content {
+        max-width: 800px;
+        padding: $spacing-3xl;
+    }
+
+    &Title {
+        font-size: $font-size-4xl;
+        margin-bottom: $spacing-lg;
+    }
+
+    &Subtitle {
+        font-size: $font-size-xl;
+        margin-bottom: $spacing-2xl;
+        opacity: 0.9;
+    }
+}
+
+.featured {
+    padding: $spacing-3xl 0;
+    background-color: $bg-primary;
+}
+
+.sectionTitle {
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+    font-size: $font-size-3xl;
+}
+
+.carGrid {
+    @include grid(4, $spacing-lg);
+
+    @include lg {
+        @include grid(3, $spacing-lg);
+    }
+
+    @include md {
+        @include grid(2, $spacing-md);
+    }
+
+    @include sm {
+        @include grid(1, $spacing-md);
+    }
+}
+
+.loading {
+    @include flex-center;
+    min-height: 200px;
+}
+
+.features {
+    padding: $spacing-3xl 0;
+    background-color: $white;
+}
+
+.featuresGrid {
+    @include grid(4, $spacing-xl);
+
+    @include lg {
+        @include grid(2, $spacing-lg);
+    }
+
+    @include sm {
+        @include grid(1, $spacing-md);
+    }
+}
+
+.feature {
+    text-align: center;
+
+    &Icon {
+        font-size: 3rem;
+        margin-bottom: $spacing-md;
+    }
+
+    h3 {
+        margin-bottom: $spacing-sm;
+    }
+
+    p {
+        color: $text-secondary;
+    }
+}
+
+.cta {
+    padding: $spacing-3xl 0;
+    background: linear-gradient(135deg, $gray-900 0%, $gray-800 100%);
+    color: $white;
+    text-align: center;
+
+    &Content {
+        max-width: 600px;
+        margin: 0 auto;
+
+        h2 {
+            margin-bottom: $spacing-md;
+        }
+
+        p {
+            margin-bottom: $spacing-xl;
+            opacity: 0.9;
+        }
+    }
+}

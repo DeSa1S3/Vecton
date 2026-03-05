@@ -1,118 +1,123 @@
-import React, { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { useGetCarsQuery, useGetBrandsQuery } from '../../store/api/carsApi'
-import { CarCard } from '../../components/features/cars/CarCard/CarCard'
-import { FilterSidebar } from '../../components/features/cars/FilterSidebar/FilterSidebar'
-import { Pagination } from '../../components/common/Pagination/Pagination'
-import { SORT_OPTIONS } from '../../utils/constants'
-import styles from './CatalogPage.module.scss'
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks';
+import { fetchCars, setFilters, setPage, setSort } from '../../store/slices/carsSlice';
+import { CarFilters as CarFiltersComponent } from '../../components/car/CarFilters/CarFilters';
+import { CarGrid } from '../../components/car/CarGrid/CarGrid';
+import { Pagination } from '../../components/common/Pagination/Pagination';
+import { Select } from '../../components/common/Select/Select';
+import { Loader } from '../../components/common/Loader/Loader';
+import styles from './CatalogPage.module.scss';
+import { useAppSelector } from '@/store/hooks/useAppSelectors';
 
 export const CatalogPage: React.FC = () => {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const dispatch = useAppDispatch();
+    const { cars, totalCount, isLoading, filters, pagination, sort } = useAppSelector(
+        (state: { cars: any; }) => state.cars
+    );
 
-    const page = Number(searchParams.get('page')) || 1
-    const sort = searchParams.get('sort') || '-created_at'
+    const [showFilters, setShowFilters] = useState(false);
 
-    const { data, isLoading } = useGetCarsQuery({
-        page,
-        ordering: sort,
-        brand: searchParams.getAll('brand'),
-        price_min: searchParams.get('price_min') ? Number(searchParams.get('price_min')) : undefined,
-        price_max: searchParams.get('price_max') ? Number(searchParams.get('price_max')) : undefined,
-        year_min: searchParams.get('year_min') ? Number(searchParams.get('year_min')) : undefined,
-        year_max: searchParams.get('year_max') ? Number(searchParams.get('year_max')) : undefined,
-        transmission: searchParams.getAll('transmission'),
-        drive: searchParams.getAll('drive'),
-        fuel_type: searchParams.getAll('fuel_type'),
-        body_type: searchParams.getAll('body_type'),
-    })
+    useEffect(() => {
+        const params: Record<string, string> = {};
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value !== undefined && value !== null && value !== '') {
+                if (Array.isArray(value)) {
+                    params[key] = value.join(',');
+                } else {
+                    params[key] = value.toString();
+                }
+            }
+        });
+        params.page = pagination.page.toString();
+        params.sort = sort;
+        setSearchParams(params);
+    }, [filters, pagination.page, sort, setSearchParams]);
 
-    const { data: brands } = useGetBrandsQuery()
+    useEffect(() => {
+        // Вариант 1: Использование @ts-ignore
+        // @ts-ignore
+        dispatch(fetchCars({
+            page: pagination.page,
+            pageSize: pagination.pageSize,
+            filters,
+            sort
+        }));
+
+        // Вариант 2: Использование as any
+        // (dispatch as any)(fetchCars({
+        //     page: pagination.page,
+        //     pageSize: pagination.pageSize,
+        //     filters,
+        //     sort
+        // }));
+    }, [dispatch, pagination.page, pagination.pageSize, filters, sort]);
+
+    const handlePageChange = (page: number) => {
+        dispatch(setPage(page));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const newParams = new URLSearchParams(searchParams)
-        newParams.set('sort', e.target.value)
-        newParams.set('page', '1')
-        setSearchParams(newParams)
-    }
+        dispatch(setSort(e.target.value));
+    };
 
-    const handlePageChange = (newPage: number) => {
-        const newParams = new URLSearchParams(searchParams)
-        newParams.set('page', newPage.toString())
-        setSearchParams(newParams)
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-
-    const toggleMobileFilters = () => {
-        setMobileFiltersOpen(!mobileFiltersOpen)
-    }
+    const sortOptions = [
+        { value: '-created_at', label: 'Сначала новые' },
+        { value: 'created_at', label: 'Сначала старые' },
+        { value: '-price', label: 'Сначала дорогие' },
+        { value: 'price', label: 'Сначала дешевые' },
+        { value: '-year', label: 'Сначала новые по году' },
+        { value: 'year', label: 'Сначала старые по году' },
+    ];
 
     return (
         <div className={styles.catalogPage}>
-            <button className={styles.mobileFilterButton} onClick={toggleMobileFilters}>
-                <span>Фильтры</span>
-                <span className={styles.filterIcon}>🔍</span>
-            </button>
-
-            <div className={styles.catalogContent}>
-                <aside className={`${styles.sidebar} ${mobileFiltersOpen ? styles.mobileOpen : ''}`}>
-                    <FilterSidebar brands={brands || []} />
-                </aside>
-
-                <main className={styles.main}>
-                    <div className={styles.sortBar}>
-                        <span className={styles.resultsCount}>
-                            Найдено: {data?.count || 0} автомобилей
-                        </span>
-                        <select
-                            className={styles.sortSelect}
+            <div className="container">
+                <div className={styles.header}>
+                    <h1>Каталог автомобилей</h1>
+                    <div className={styles.controls}>
+                        <button
+                            className={styles.filterToggle}
+                            onClick={() => setShowFilters(!showFilters)}
+                        >
+                            Фильтры
+                        </button>
+                        <Select
+                            options={sortOptions}
                             value={sort}
                             onChange={handleSortChange}
-                        >
-                            {SORT_OPTIONS.map(option => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
+                        />
                     </div>
+                </div>
 
-                    {/* Cars grid */}
-                    {isLoading ? (
-                        <div className={styles.loading}>Загрузка...</div>
-                    ) : (
-                        <>
-                            {data?.results.length === 0 ? (
-                                <div className={styles.noResults}>
-                                    <h3>Автомобили не найдены</h3>
-                                    <p>Попробуйте изменить параметры фильтрации</p>
+                <div className={styles.content}>
+                    <aside className={`${styles.filters} ${showFilters ? styles.active : ''}`}>
+                        <CarFiltersComponent />
+                    </aside>
+
+                    <main className={styles.main}>
+                        {isLoading ? (
+                            <Loader />
+                        ) : (
+                            <>
+                                <div className={styles.stats}>
+                                    Найдено автомобилей: <strong>{totalCount}</strong>
                                 </div>
-                            ) : (
-                                <>
-                                    <div className={styles.carGrid}>
-                                        {data?.results.map((car: { id: any }) => (
-                                            <CarCard key={car.id} car={car} />
-                                        ))}
-                                    </div>
-
-                                    {data && data.total_pages > 1 && (
-                                        <Pagination
-                                            currentPage={page}
-                                            totalPages={data.total_pages}
-                                            onPageChange={handlePageChange}
-                                        />
-                                    )}
-                                </>
-                            )}
-                        </>
-                    )}
-                </main>
+                                <CarGrid cars={cars} />
+                                {totalCount > pagination.pageSize && (
+                                    <Pagination
+                                        currentPage={pagination.page}
+                                        totalPages={Math.ceil(totalCount / pagination.pageSize)}
+                                        onPageChange={handlePageChange}
+                                    />
+                                )}
+                            </>
+                        )}
+                    </main>
+                </div>
             </div>
-
-            {mobileFiltersOpen && (
-                <div className={styles.overlay} onClick={toggleMobileFilters} />
-            )}
         </div>
-    )
-}
+    );
+};

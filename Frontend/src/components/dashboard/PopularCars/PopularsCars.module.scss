@@ -1,0 +1,72 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.table {
+    width: 100%;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    overflow: hidden;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px;
+    background-color: $gray-50;
+    padding: $spacing-md;
+    font-weight: 600;
+    color: $text-secondary;
+    border-bottom: 1px solid $border-color;
+}
+
+.body {
+    @include flex-column;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px;
+    padding: $spacing-md;
+    border-bottom: 1px solid $border-color;
+    cursor: pointer;
+    transition: background-color $transition-base $transition-timing;
+
+    &:hover {
+        background-color: $gray-50;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.cell {
+    @include flex-center;
+    justify-content: flex-start;
+}
+
+.carInfo {
+    @include flex-column;
+    gap: $spacing-xs;
+
+    strong {
+        color: $text-primary;
+    }
+
+    span {
+        color: $text-secondary;
+        font-size: $font-size-sm;
+    }
+}
+
+.sales,
+.views {
+    @include flex-center;
+    gap: $spacing-xs;
+    color: $text-secondary;
+}
+
+.empty {
+    padding: $spacing-xl;
+    text-align: center;
+    color: $text-secondary;
+}

@@ -1,164 +1,194 @@
-import React, { useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useGetCarQuery, useIncrementViewsMutation } from '../../store/api/carsApi'
-import { useGetSimilarCarsQuery } from '../../store/api/carsApi'
-import { useAddToFavoritesMutation, useCheckInFavoritesQuery } from '../../store/api/favoritesApi'
-import { useAuth } from '../../hooks/useAuth'
-import { useToast } from '../../hooks/useToast'
-import { ImageGallery } from '../../components/features/cars/ImageGallery/ImageGallery'
-import { CarSpecs } from '../../components/features/cars/CarSpecs/CarSpecs'
-import { OrderForm } from '../../components/features/orders/OrderForm/OrderForm'
-import { CarCard } from '../../components/features/cars/CarCard/CarCard'
-import { Button } from '../../components/common/Button/Button'
-import styles from './CarDetailPage.module.scss'
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { FiEye, FiCalendar, FiMapPin, FiHeart } from 'react-icons/fi';
+import { useAppDispatch } from '../../store/hooks';
+import { fetchCarById, fetchSimilarCars, clearCurrentCar } from '../../store/slices/carsSlice';
+import { addToFavorites, removeFromFavorites, checkFavorite } from '../../store/slices/favoritesSlice';
+import { CarGallery } from '../../components/car/CarGallery/CarGallery';
+import { CarSpecs } from '../../components/car/CarSpecs/CarSpecs';
+import { CarActions } from '../../components/car/CarActions/CarActions';
+import { CarCard } from '../../components/car/CarCard/CarCard';
+import { Button, Loader } from '../../components/common';
+import { OrderForm } from '../../components/order/OrderForm/OrderForm';
+import { formatPrice } from '../../utils/formatters';
+import { CAR_STATUSES } from '../../utils/constants';
+import { useAuth } from '../../hooks';
+import { Car } from '../../types';
+import styles from './CarDetailPage.module.scss';
+import { useAppSelector } from '@/store/hooks/useAppSelectors';
 
 export const CarDetailPage: React.FC = () => {
-    const { id } = useParams<{ id: string }>()
-    const navigate = useNavigate()
-    const carId = Number(id)
-    const { isAuthenticated } = useAuth()
-    const { showSuccess, showError } = useToast()
-
-    const { data: car, isLoading } = useGetCarQuery(carId)
-    const { data: similarCars } = useGetSimilarCarsQuery(carId, { skip: !car })
-    const [incrementViews] = useIncrementViewsMutation()
-    const [addToFavorites] = useAddToFavoritesMutation()
-    const { data: favoriteData, refetch: refetchFavorite } = useCheckInFavoritesQuery(carId, {
-        skip: !isAuthenticated || !carId,
-    })
+    const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { isAuthenticated } = useAuth();
+    const { currentCar, similarCars, isLoading } = useAppSelector((state: { cars: any; }) => state.cars);
+    const { favoriteIds } = useAppSelector((state: { favorites: any; }) => state.favorites);
+    const [showOrderForm, setShowOrderForm] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        if (carId) {
-            incrementViews(carId)
+        if (id) {
+            const carId = parseInt(id);
+            // @ts-ignore - временное игнорирование ошибок типов
+            dispatch(fetchCarById(carId));
+            // @ts-ignore
+            dispatch(fetchSimilarCars(carId));
+            if (isAuthenticated) {
+                // @ts-ignore
+                dispatch(checkFavorite(carId));
+            }
         }
-    }, [carId, incrementViews])
 
-    const handleAddToFavorites = async () => {
+        return () => {
+            dispatch(clearCurrentCar());
+        };
+    }, [id, dispatch, isAuthenticated]);
+
+    useEffect(() => {
+        if (currentCar) {
+            setIsFavorite(favoriteIds.includes(currentCar.id));
+        }
+    }, [currentCar, favoriteIds]);
+
+    const handleFavoriteClick = () => {
         if (!isAuthenticated) {
-            navigate('/login')
-            return
+            navigate('/login');
+            return;
         }
 
-        try {
-            await addToFavorites({ car: carId }).unwrap()
-            refetchFavorite()
-            showSuccess('Автомобиль добавлен в избранное')
-        } catch (error) {
-            showError('Ошибка при добавлении в избранное')
+        if (isFavorite) {
+            const favorite = favoriteIds.find((favId: number) => favId === currentCar.id);
+            if (favorite) {
+                // @ts-ignore
+                dispatch(removeFromFavorites(favorite));
+            }
+        } else {
+            // @ts-ignore
+            dispatch(addToFavorites(currentCar.id));
         }
-    }
+    };
 
-    if (isLoading) {
-        return <div className={styles.loading}>Загрузка...</div>
-    }
-
-    if (!car) {
+    if (isLoading || !currentCar) {
         return (
-            <div className={styles.notFound}>
-                <h2>Автомобиль не найден</h2>
-                <Button variant="primary" onClick={() => navigate('/catalog')}>
-                    Вернуться в каталог
-                </Button>
+            <div className={styles.loading}>
+                <Loader />
             </div>
-        )
+        );
     }
+
+    const getStatusDisplay = () => {
+        const statusKey = currentCar.status as keyof typeof CAR_STATUSES;
+        return CAR_STATUSES[statusKey] || { label: currentCar.status, color: '#999' };
+    };
+
+    const statusDisplay = getStatusDisplay();
 
     return (
         <div className={styles.carDetailPage}>
-            <div className={styles.header}>
-                <button className={styles.backButton} onClick={() => navigate(-1)}>
-                    ← Назад
-                </button>
-                <h1 className={styles.title}>
-                    {car.brand} {car.model} {car.year} год
-                </h1>
-            </div>
+            <div className="container">
+                <div className={styles.breadcrumbs}>
+                    <button onClick={() => navigate('/catalog')} className={styles.backButton}>
+                        ← Назад к каталогу
+                    </button>
+                </div>
 
-            <section className={styles.gallery}>
-                <ImageGallery images={car.images} />
-            </section>
-
-            <div className={styles.mainInfo}>
-                <div className={styles.priceSection}>
-                    <div className={styles.price}>{car.formatted_price}</div>
+                <div className={styles.header}>
+                    <h1>
+                        {currentCar.brand} {currentCar.model}, {currentCar.year}
+                    </h1>
                     <div className={styles.actions}>
                         <Button
-                            variant={favoriteData?.in_favorites ? 'success' : 'outline'}
-                            onClick={handleAddToFavorites}
-                            icon="❤️"
+                            variant={isFavorite ? 'danger' : 'outline'}
+                            icon={<FiHeart />}
+                            onClick={handleFavoriteClick}
                         >
-                            {favoriteData?.in_favorites ? 'В избранном' : 'В избранное'}
+                            {isFavorite ? 'В избранном' : 'В избранное'}
                         </Button>
                     </div>
                 </div>
 
-                <div className={styles.status}>
-                    <span className={`${styles.statusBadge} ${styles[car.status]}`}>
-                        {car.status === 'in_stock' && 'В наличии'}
-                        {car.status === 'sold' && 'Продан'}
-                        {car.status === 'reserved' && 'В резерве'}
-                        {car.status === 'expected' && 'Ожидается'}
-                    </span>
-                    <span className={styles.views}>👁 {car.views_count} просмотров</span>
-                </div>
-            </div>
+                <CarGallery images={currentCar.images || []} />
 
-            <div className={styles.contentGrid}>
-                <div className={styles.leftColumn}>
-                    <CarSpecs car={car} />
-
-                    {car.description && (
-                        <div className={styles.description}>
-                            <h2 className={styles.sectionTitle}>Описание</h2>
-                            <p>{car.description}</p>
-                        </div>
-                    )}
-
-                    {car.equipment && Object.keys(car.equipment).length > 0 && (
-                        <div className={styles.equipment}>
-                            <h2 className={styles.sectionTitle}>Комплектация</h2>
-                            <div className={styles.equipmentGrid}>
-                                {Object.entries(car.equipment).map(([category, items]) => (
-                                    <div key={category} className={styles.equipmentCategory}>
-                                        <h3 className={styles.categoryTitle}>{category}</h3>
-                                        <ul className={styles.equipmentList}>
-                                            {Array.isArray(items) && items.map((item, index) => (
-                                                <li key={index} className={styles.equipmentItem}>
-                                                    ✓ {item}
-                                                </li>
-                                            ))}
-                                        </ul>
+                <div className={styles.mainInfo}>
+                    <div className={styles.infoGrid}>
+                        <div className={styles.leftColumn}>
+                            <div className={styles.priceSection}>
+                                <div className={styles.price}>
+                                    {formatPrice(currentCar.price)}
+                                </div>
+                                {currentCar.status !== 'in_stock' && (
+                                    <div className={styles.status} style={{ backgroundColor: statusDisplay.color }}>
+                                        {statusDisplay.label}
                                     </div>
-                                ))}
+                                )}
                             </div>
+
+                            <div className={styles.quickSpecs}>
+                                <div className={styles.specItem}>
+                                    <FiCalendar />
+                                    <span>{currentCar.year} год</span>
+                                </div>
+                                <div className={styles.specItem}>
+                                    <FiMapPin />
+                                    <span>Москва</span>
+                                </div>
+                                <div className={styles.specItem}>
+                                    <FiEye />
+                                    <span>{currentCar.views_count || 0} просмотров</span>
+                                </div>
+                            </div>
+
+                            <CarSpecs car={currentCar} />
+
+                            {currentCar.description && (
+                                <div className={styles.description}>
+                                    <h3>Описание</h3>
+                                    <p>{currentCar.description}</p>
+                                </div>
+                            )}
+
+                            {currentCar.equipment && Object.keys(currentCar.equipment).length > 0 && (
+                                <div className={styles.equipment}>
+                                    <h3>Комплектация</h3>
+                                    <ul className={styles.equipmentList}>
+                                        {Object.entries(currentCar.equipment).map(([key, value]) => (
+                                            <li key={key}>
+                                                <strong>{key}:</strong> {String(value)}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
-                    )}
+
+                        <div className={styles.rightColumn}>
+                            <CarActions
+                                car={currentCar}
+                                onOrderClick={() => setShowOrderForm(true)}
+                            />
+                        </div>
+                    </div>
                 </div>
 
-                <div className={styles.rightColumn}>
-                    {isAuthenticated ? (
-                        <OrderForm carId={car.id} />
-                    ) : (
-                        <div className={styles.authPrompt}>
-                            <p>Чтобы оставить заявку, необходимо авторизоваться</p>
-                            <Button variant="primary" onClick={() => navigate('/login')}>
-                                Войти
-                            </Button>
+                {similarCars && similarCars.length > 0 && (
+                    <div className={styles.similar}>
+                        <h2>Похожие автомобили</h2>
+                        <div className={styles.similarGrid}>
+                            {similarCars.map((car: Car) => (
+                                <CarCard key={car.id} car={car} />
+                            ))}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
 
-            {similarCars && similarCars.length > 0 && (
-                <section className={styles.similar}>
-                    <h2 className={styles.sectionTitle}>Похожие автомобили</h2>
-                    <div className={styles.similarGrid}>
-                        {similarCars.map((car: { id: any }) => (
-                            <CarCard key={car.id} car={car} />
-                        ))}
-                    </div>
-                </section>
+            {showOrderForm && currentCar && (
+                <OrderForm
+                    car={currentCar}
+                    onClose={() => setShowOrderForm(false)}
+                />
             )}
         </div>
-    )
-}
+    );
+};

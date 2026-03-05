@@ -1,0 +1,79 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.gallery {
+    position: relative;
+}
+
+.placeholder {
+    aspect-ratio: 16/9;
+    background-color: $gray-200;
+    border-radius: $radius-xl;
+    @include flex-center;
+}
+
+.noImage {
+    color: $gray-500;
+    font-size: $font-size-lg;
+}
+
+.mainSwiper {
+    width: 100%;
+    height: 500px;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    margin-bottom: $spacing-md;
+
+    @include md {
+        height: 400px;
+    }
+
+    @include sm {
+        height: 300px;
+    }
+}
+
+.mainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.thumbsSwiper {
+    height: 100px;
+    box-sizing: border-box;
+    padding: $spacing-xs 0;
+
+    .swiper-slide {
+        opacity: 0.4;
+        transition: opacity $transition-base $transition-timing;
+        cursor: pointer;
+
+        &-thumb-active {
+            opacity: 1;
+        }
+    }
+}
+
+.thumbImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $radius-lg;
+}
+
+.modal {
+    @include absolute-fill;
+    position: fixed;
+    background-color: rgba($black, 0.9);
+    @include flex-center;
+    z-index: $z-index-modal;
+    cursor: pointer;
+
+    &Image {
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+    }
+}

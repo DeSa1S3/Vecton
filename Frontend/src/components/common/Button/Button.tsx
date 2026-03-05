@@ -1,35 +1,33 @@
-import React from 'react'
-import styles from './Button.module.scss'
+import React from 'react';
+import styles from './Button.module.scss';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'success'
-    size?: 'small' | 'medium' | 'large'
-    fullWidth?: boolean
-    loading?: boolean
-    icon?: React.ReactNode
-    iconPosition?: 'left' | 'right'
+    variant?: 'primary' | 'secondary' | 'outline' | 'danger';
+    size?: 'sm' | 'md' | 'lg';
+    fullWidth?: boolean;
+    loading?: boolean;
+    icon?: React.ReactNode;
 }
 
 export const Button: React.FC<ButtonProps> = ({
     children,
     variant = 'primary',
-    size = 'medium',
+    size = 'md',
     fullWidth = false,
     loading = false,
     icon,
-    iconPosition = 'left',
     className,
     disabled,
     ...props
 }) => {
     const buttonClasses = [
         styles.button,
-        styles[variant],
-        styles[size],
-        fullWidth ? styles.fullWidth : '',
-        loading ? styles.loading : '',
+        styles[`button-${variant}`],
+        styles[`button-${size}`],
+        fullWidth ? styles['button-full-width'] : '',
+        loading ? styles['button-loading'] : '',
         className,
-    ].join(' ')
+    ].filter(Boolean).join(' ');
 
     return (
         <button
@@ -38,9 +36,8 @@ export const Button: React.FC<ButtonProps> = ({
             {...props}
         >
             {loading && <span className={styles.spinner} />}
-            {icon && iconPosition === 'left' && <span className={styles.iconLeft}>{icon}</span>}
-            {children}
-            {icon && iconPosition === 'right' && <span className={styles.iconRight}>{icon}</span>}
+            {icon && <span className={styles.icon}>{icon}</span>}
+            {children && <span className={styles.text}>{children}</span>}
         </button>
-    )
-}
+    );
+};

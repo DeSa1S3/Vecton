@@ -1,11 +1,44 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
     },
-    {
-      "path": "./tsconfig.node.json"
-    }
+    "types": [
+      "node",
+      "react",
+      "react-dom"
+    ],
+    "ignoreDeprecations": "6.0"
+  },
+  "include": [
+    "src",
+    "src/App.tsx",
+    "src/main.tsx",
+    "src/react-app-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

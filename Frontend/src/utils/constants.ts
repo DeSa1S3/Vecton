@@ -1,106 +1,115 @@
-export const CAR_BODY_TYPES = [
-    { value: 'sedan', label: 'Седан' },
-    { value: 'hatchback', label: 'Хэтчбек' },
-    { value: 'suv', label: 'Внедорожник' },
-    { value: 'coupe', label: 'Купе' },
-    { value: 'wagon', label: 'Универсал' },
-    { value: 'minivan', label: 'Минивэн' },
-    { value: 'pickup', label: 'Пикап' },
-    { value: 'van', label: 'Фургон' },
-    { value: 'cabrio', label: 'Кабриолет' },
-]
+import {
+    CarStatus,
+    FuelType,
+    Transmission,
+    Drive,
+    BodyType,
+    OrderType,
+    OrderStatus,
+    UserRole
+} from '../types';
 
-export const CAR_TRANSMISSIONS = [
-    { value: 'automatic', label: 'Автомат' },
-    { value: 'manual', label: 'Механика' },
-    { value: 'robot', label: 'Робот' },
-]
+export const CAR_STATUSES: Record<CarStatus, { label: string; color: string }> = {
+    in_stock: { label: 'В наличии', color: '#10b981' },
+    sold: { label: 'Продан', color: '#ef4444' },
+    reserved: { label: 'В резерве', color: '#f59e0b' },
+    expected: { label: 'Ожидается', color: '#3b82f6' }
+};
 
-export const CAR_DRIVES = [
-    { value: 'front', label: 'Передний' },
-    { value: 'rear', label: 'Задний' },
-    { value: 'awd', label: 'Полный (постоянный)' },
-    { value: '4wd', label: 'Полный (подключаемый)' },
-]
+export const FUEL_TYPES: Record<FuelType, string> = {
+    petrol: 'Бензин',
+    diesel: 'Дизель',
+    electric: 'Электро',
+    hybrid: 'Гибрид'
+};
 
-export const CAR_FUEL_TYPES = [
-    { value: 'petrol', label: 'Бензин' },
-    { value: 'diesel', label: 'Дизель' },
-    { value: 'electric', label: 'Электро' },
-    { value: 'hybrid', label: 'Гибрид' },
-]
+export const TRANSMISSIONS: Record<Transmission, string> = {
+    automatic: 'Автомат',
+    manual: 'Механика',
+    robot: 'Робот'
+};
 
-export const CAR_STATUSES = [
-    { value: 'in_stock', label: 'В наличии', color: '#10b981' },
-    { value: 'sold', label: 'Продан', color: '#ef4444' },
-    { value: 'reserved', label: 'В резерве', color: '#f59e0b' },
-    { value: 'expected', label: 'Ожидается', color: '#3b82f6' },
-]
+export const DRIVES: Record<Drive, string> = {
+    front: 'Передний',
+    rear: 'Задний',
+    awd: 'Полный (постоянный)',
+    '4wd': 'Подключаемый полный'
+};
 
-export const ORDER_TYPES = [
-    { value: 'test_drive', label: 'Тест-драйв' },
-    { value: 'purchase', label: 'Покупка' },
-    { value: 'trade_in', label: 'Trade-in' },
-    { value: 'consultation', label: 'Консультация' },
-]
+export const BODY_TYPES: Record<BodyType, string> = {
+    sedan: 'Седан',
+    hatchback: 'Хэтчбек',
+    suv: 'Внедорожник',
+    coupe: 'Купе',
+    wagon: 'Универсал',
+    minivan: 'Минивэн',
+    pickup: 'Пикап',
+    van: 'Фургон',
+    cabrio: 'Кабриолет'
+};
 
-export const ORDER_STATUSES = [
-    { value: 'new', label: 'Новая', color: '#3b82f6' },
-    { value: 'in_progress', label: 'В обработке', color: '#f59e0b' },
-    { value: 'completed', label: 'Завершена', color: '#10b981' },
-    { value: 'cancelled', label: 'Отменена', color: '#ef4444' },
-]
+export const ORDER_TYPES: Record<OrderType, string> = {
+    test_drive: 'Тест-драйв',
+    purchase: 'Покупка',
+    trade_in: 'Trade-in',
+    consultation: 'Консультация'
+};
 
-export const USER_ROLES = [
-    { value: 'client', label: 'Клиент' },
-    { value: 'manager', label: 'Менеджер' },
-    { value: 'admin', label: 'Администратор' },
-]
+export const ORDER_STATUSES: Record<OrderStatus, { label: string; color: string }> = {
+    new: { label: 'Новая', color: '#3b82f6' },
+    in_progress: { label: 'В обработке', color: '#f59e0b' },
+    completed: { label: 'Завершена', color: '#10b981' },
+    cancelled: { label: 'Отменена', color: '#ef4444' }
+};
 
-export const NOTIFICATION_TYPES = [
-    { value: 'email', label: 'Email' },
-    { value: 'sms', label: 'SMS' },
-    { value: 'push', label: 'Push' },
-    { value: 'telegram', label: 'Telegram' },
-]
+export const USER_ROLES: Record<UserRole, string> = {
+    client: 'Клиент',
+    manager: 'Менеджер',
+    admin: 'Администратор'
+};
 
-export const PAYMENT_METHODS = [
-    { value: 'cash', label: 'Наличные' },
-    { value: 'card', label: 'Карта' },
-    { value: 'online', label: 'Онлайн' },
-    { value: 'installment', label: 'Рассрочка' },
-    { value: 'credit', label: 'Кредит' },
-]
+export const API_ENDPOINTS = {
+    AUTH: {
+        LOGIN: '/auth/login/',
+        REGISTER: '/auth/register/',
+        REFRESH: '/auth/refresh/',
+        ME: '/auth/me/',
+        UPDATE_ME: '/auth/update_me/',
+        CHANGE_PASSWORD: '/auth/change_password/'
+    },
+    CARS: {
+        LIST: '/cars/',
+        DETAIL: (id: number) => `/cars/${id}/`,
+        SIMILAR: (id: number) => `/cars/${id}/similar/`,
+        INCREMENT_VIEWS: (id: number) => `/cars/${id}/increment_views/`,
+        UPLOAD_IMAGES: (id: number) => `/cars/${id}/images/`
+    },
+    ORDERS: {
+        LIST: '/orders/',
+        DETAIL: (id: number) => `/orders/${id}/`,
+        CANCEL: (id: number) => `/orders/${id}/cancel/`,
+        ADD_REVIEW: (id: number) => `/orders/${id}/add_review/`,
+        STATISTICS: '/orders/statistics/'
+    },
+    FAVORITES: {
+        LIST: '/favorites/',
+        CHECK: '/favorites/check/',
+        CLEAR: '/favorites/clear/'
+    },
+    NOTIFICATIONS: {
+        LIST: '/notifications/',
+        MARK_READ: '/notifications/mark_read/'
+    },
+    DASHBOARD: {
+        STATS: '/dashboard/stats/',
+        POPULAR_CARS: '/dashboard/popular-cars/',
+        RECENT_ORDERS: '/dashboard/recent-orders/',
+        REVENUE: '/dashboard/revenue/'
+    }
+} as const;
 
-export const PAYMENT_STATUSES = [
-    { value: 'pending', label: 'Ожидает', color: '#f59e0b' },
-    { value: 'processing', label: 'В обработке', color: '#3b82f6' },
-    { value: 'completed', label: 'Завершен', color: '#10b981' },
-    { value: 'failed', label: 'Ошибка', color: '#ef4444' },
-    { value: 'refunded', label: 'Возврат', color: '#6b7280' },
-]
-
-export const SORT_OPTIONS = [
-    { value: '-created_at', label: 'Сначала новые' },
-    { value: 'created_at', label: 'Сначала старые' },
-    { value: '-price', label: 'Сначала дорогие' },
-    { value: 'price', label: 'Сначала дешевые' },
-    { value: '-year', label: 'Сначала новые по году' },
-    { value: 'year', label: 'Сначала старые по году' },
-    { value: '-views_count', label: 'По популярности' },
-]
-
-export const PRICE_RANGES = [
-    { min: 0, max: 500000, label: 'до 500 000 ₽' },
-    { min: 500000, max: 1000000, label: '500 000 - 1 000 000 ₽' },
-    { min: 1000000, max: 1500000, label: '1 000 000 - 1 500 000 ₽' },
-    { min: 1500000, max: 2000000, label: '1 500 000 - 2 000 000 ₽' },
-    { min: 2000000, max: 3000000, label: '2 000 000 - 3 000 000 ₽' },
-    { min: 3000000, max: 5000000, label: '3 000 000 - 5 000 000 ₽' },
-    { min: 5000000, max: null, label: 'более 5 000 000 ₽' },
-]
-
-export const YEAR_RANGES = [
-    { min: 2020, max: null, label: '2020 - 2025' },
-    { min: 2015, max: 2019, label: '2015 - 2019' },
-    { min: 2010, max: 2014, label: '2010 - 2014' },
+export const LOCAL_STORAGE_KEYS = {
+    ACCESS_TOKEN: 'accessToken',
+    REFRESH_TOKEN: 'refreshToken',
+    USER: 'user'
+} as const;

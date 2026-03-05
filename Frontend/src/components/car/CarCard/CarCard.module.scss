@@ -1,0 +1,115 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.card {
+    background-color: $white;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    box-shadow: $shadow-md;
+    transition: all $transition-base $transition-timing;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $shadow-lg;
+    }
+}
+
+.imageLink {
+    display: block;
+    text-decoration: none;
+}
+
+.image {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform $transition-slow $transition-timing;
+    }
+
+    &:hover img {
+        transform: scale(1.05);
+    }
+}
+
+.placeholder {
+    @include absolute-fill;
+    @include flex-center;
+    background-color: $gray-200;
+    color: $gray-500;
+    font-size: $font-size-sm;
+}
+
+.status {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    color: $white;
+    font-size: $font-size-xs;
+    font-weight: 500;
+    z-index: 1;
+}
+
+.content {
+    padding: $spacing-lg;
+}
+
+.title {
+    display: block;
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: $text-primary;
+    text-decoration: none;
+    margin-bottom: $spacing-sm;
+
+    &:hover {
+        color: $primary;
+    }
+}
+
+.price {
+    font-size: $font-size-2xl;
+    font-weight: 700;
+    color: $primary;
+    margin-bottom: $spacing-sm;
+}
+
+.specs {
+    @include flex-center;
+    gap: $spacing-md;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-md;
+
+    span {
+        @include flex-center;
+        gap: $spacing-xs;
+
+        &:not(:last-child)::after {
+            content: '•';
+            margin-left: $spacing-md;
+        }
+    }
+}
+
+.footer {
+    @include flex-between;
+}
+
+.stats {
+    @include flex-center;
+    gap: $spacing-md;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+}
+
+.views {
+    @include flex-center;
+    gap: $spacing-xs;
+}

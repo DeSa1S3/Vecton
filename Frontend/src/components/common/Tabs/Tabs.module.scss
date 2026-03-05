@@ -1,0 +1,26 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid $border-color;
+    background-color: $white;
+}
+
+.tab {
+    @include button-reset;
+    padding: $spacing-md $spacing-xl;
+    font-weight: 500;
+    color: $text-secondary;
+    border-bottom: 2px solid transparent;
+    transition: all $transition-base $transition-timing;
+
+    &:hover {
+        color: $primary;
+    }
+
+    &.active {
+        color: $primary;
+        border-bottom-color: $primary;
+    }
+}

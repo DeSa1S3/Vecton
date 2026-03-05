@@ -1,0 +1,51 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.actions {
+    background-color: $white;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $shadow-lg;
+    position: sticky;
+    top: 100px;
+}
+
+.price {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+
+    .label {
+        display: block;
+        color: $text-secondary;
+        margin-bottom: $spacing-xs;
+    }
+
+    .value {
+        font-size: $font-size-3xl;
+        font-weight: 700;
+        color: $primary;
+    }
+}
+
+.additional {
+    @include flex-column;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $border-color;
+}
+
+.vin {
+    margin-top: $spacing-lg;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $border-color;
+    text-align: center;
+    color: $text-secondary;
+    font-size: $font-size-sm;
+
+    span {
+        color: $text-primary;
+        font-weight: 500;
+        font-family: monospace;
+    }
+}

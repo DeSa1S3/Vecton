@@ -1,0 +1,162 @@
+@import './variables';
+
+@mixin sm {
+    @media (min-width: #{$breakpoint-sm}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (min-width: #{$breakpoint-md}) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (min-width: #{$breakpoint-lg}) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (min-width: #{$breakpoint-xl}) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media (min-width: #{$breakpoint-2xl}) {
+        @content;
+    }
+}
+
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: $wrap;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin grid($columns: 1, $gap: $spacing-md) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+}
+
+@mixin truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin line-clamp($lines) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@mixin absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin absolute-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@mixin shadow-sm {
+    box-shadow: $shadow-sm;
+}
+
+@mixin shadow-md {
+    box-shadow: $shadow-md;
+}
+
+@mixin shadow-lg {
+    box-shadow: $shadow-lg;
+}
+
+@mixin shadow-xl {
+    box-shadow: $shadow-xl;
+}
+
+@mixin transition($property: all, $duration: $transition-base, $timing: $transition-timing) {
+    transition: $property $duration $timing;
+}
+
+@mixin hover-lift {
+    @include transition;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+}
+
+@mixin container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $container-padding;
+
+    @include lg {
+        padding: 0 $spacing-xl;
+    }
+}
+
+@mixin button-reset {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin scrollbar($width: 8px) {
+    &::-webkit-scrollbar {
+        width: $width;
+        height: $width;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $gray-100;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $gray-400;
+        border-radius: $width / 2;
+
+        &:hover {
+            background: $gray-500;
+        }
+    }
+}

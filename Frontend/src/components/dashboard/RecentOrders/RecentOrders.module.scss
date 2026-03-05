@@ -1,0 +1,101 @@
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/mixins';
+
+.table {
+    width: 100%;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    overflow: hidden;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 80px 150px 1fr 100px 100px 100px;
+    background-color: $gray-50;
+    padding: $spacing-md;
+    font-weight: 600;
+    color: $text-secondary;
+    border-bottom: 1px solid $border-color;
+
+    @include lg {
+        grid-template-columns: 80px 150px 1fr 100px 100px 100px;
+    }
+
+    @include md {
+        grid-template-columns: 80px 150px 1fr 100px 100px 100px;
+        font-size: $font-size-sm;
+    }
+
+    @include sm {
+        display: none;
+    }
+}
+
+.body {
+    @include flex-column;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 80px 150px 1fr 100px 100px 100px;
+    padding: $spacing-md;
+    border-bottom: 1px solid $border-color;
+    cursor: pointer;
+    transition: background-color $transition-base $transition-timing;
+
+    &:hover {
+        background-color: $gray-50;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    @include sm {
+        grid-template-columns: 1fr;
+        gap: $spacing-sm;
+    }
+}
+
+.cell {
+    @include flex-center;
+    justify-content: flex-start;
+
+    @include sm {
+        justify-content: space-between;
+
+        &::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: $text-secondary;
+        }
+    }
+}
+
+.userInfo {
+    @include flex-column;
+    gap: $spacing-xs;
+
+    strong {
+        color: $text-primary;
+    }
+
+    span {
+        color: $text-secondary;
+        font-size: $font-size-sm;
+    }
+}
+
+.status {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    font-size: $font-size-sm;
+    font-weight: 500;
+}
+
+.empty {
+    padding: $spacing-xl;
+    text-align: center;
+    color: $text-secondary;
+}
