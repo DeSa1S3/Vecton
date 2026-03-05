@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { PrivateRoute } from './PrivatesRoute';
 import { Layout } from '../components/layout/Layout/Layout';
 import { ManagerRoute } from './ManagerRoute';
-import { HomePage } from '../pages/HomePage/HomePages';
+import { HomePage } from '../pages/HomePage/HomePage';
 import { CatalogPage } from '../pages/CatalogPage/CatalogPage';
 import { CarDetailPage } from '../pages/CarDetailPage/CarDetailPage';
 import { LoginPage } from '../pages/LoginPage/LoginPage';

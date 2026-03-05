@@ -47,14 +47,6 @@
         }
     }
 
-    &-danger {
-        background-color: $danger;
-        color: $white;
-
-        &:not(:disabled):hover {
-            background-color: darken($danger, 10%);
-        }
-    }
 
     &-sm {
         padding: $spacing-xs $spacing-md;
